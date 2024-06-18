@@ -43,6 +43,9 @@ input {
 .m-bottom-3em { margin-bottom: 3em; }
 .m-both-auto { margin-left: auto; margin-right: auto;}
 .padding-all-1em { padding: 1em; }
+.p-left-1em{ padding-left: 1em; }
+.p-left-2em{ padding-left: 2em; }
+.p-left-3em{ padding-left: 3em; }
 .font-wb { font-weight: bold; }
 .ta-left { text-align: left; }
 .ta-center { text-align: center; }
@@ -63,14 +66,14 @@ input {
 
 /* 共通パーツ 背景色 */
 .bg-orange { background-color: #ff693a; }
-.bg-orange:hover{background-color: #e75f34;}
+.bg-orange:hover{background-color: #f05d31;}
 /* 共通パーツここまで */
 
 
 /* 固有パーツ */
 .albumArtList {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(5, 1fr);
     grid-template-rows: repeat(3, 1fr);
     grid-column-gap: 10px;
     grid-row-gap: 10px;
@@ -173,18 +176,18 @@ input {
 .modal-content {
     background: #fff;
     text-align: left;
-    padding: 1em 2em;
+    padding: 1em 0;
     border-radius: 5px;
     box-shadow: 2px 2px 15px 1px #222222;
 }
 
-#artistName { width: 100%; }
+#artistName { width: 80%; }
 
 .albumItems {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 1em 0;
+    padding: 1em;
     border-top: 1px solid #cacaca;
 }
 

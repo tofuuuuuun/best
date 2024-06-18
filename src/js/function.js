@@ -49,7 +49,7 @@ $(function () {
     let albumCounter = 0;
     $(document).on("click", ".select", function () {
         if (albumCounter >= 10) {
-            alert('10!!!');
+            $('.addButton').remove();
         } else {
             let selectAlbum;
             selectAlbum = $(this).closest('li').children('img').attr('src');

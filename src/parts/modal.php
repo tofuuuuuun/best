@@ -4,7 +4,7 @@
     <div class="modal-body">
         <div class="modal-close"><i class="fa-solid fa-xmark"></i></div>
         <div class="modal-content">
-            <div class="searchForm ta-left">
+            <div class="searchForm p-left-1em ta-left">
                 <div class="inputArtist m-bottom-1em">
                     <p class="artistName font-wb">アーティスト</p>
                     <input type="text" name="artist" id="artistName">
