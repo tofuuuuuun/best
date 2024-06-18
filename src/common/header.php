@@ -12,8 +12,8 @@
 </head>
 
 <body>
-    <header>
+    <!-- <header>
         <div class="headerWrapper">
             <h1><?php echo $title ?></h1>
         </div>
-    </header>
+    </header> -->
