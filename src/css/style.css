@@ -51,8 +51,8 @@ input {
 .ta-center { text-align: center; }
 /* 共通パーツ レイアウト */
 .l-albumArt {
-    width: 250px;
-    height: 250px;
+    width: 220px;
+    height: 220px;
     border: 1px solid #fcfcfc;
 }
 
@@ -74,8 +74,8 @@ input {
 /* 固有パーツ */
 .albumArtList {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    grid-template-rows: repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fill, 220px);
+    /* grid-template-rows: repeat(3, 1fr); */
     grid-column-gap: 10px;
     grid-row-gap: 10px;
 }
@@ -197,11 +197,16 @@ input {
 }
 
 .albumImage {
-    width: 30%;
+    width: 20%;
     height: auto;
     margin-right: 1em;
 }
 
 .albumName {
     width: 70%;
+}
+
+.modalList{
+    height: 400px;
+    overflow-y: auto;
 }
