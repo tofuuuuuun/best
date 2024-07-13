@@ -4,7 +4,7 @@ $(function () {
         container = $('.modal-container');
     open.on('click', function () {
         container.addClass('active');
-        $('.modalList').children().remove();
+        $('.modalList').remove();
         $('#artistName').val('');
         return false;
     });
@@ -37,6 +37,12 @@ $(function () {
         resultItemCount = Object.keys(result['items']).length;
         var imageItems;
         var albumName;
+        if ($('.modal-content').hasClass('modalList')) {
+
+        } else {
+            $('.modal-content')
+                .append('<ul class="modalList"></ul >');
+        }
         for (let i = 0; i <= resultItemCount - 1;) {
             imageItems = result['items'][i]['images'][1]['url'];
             albumName = result['items'][i]['name'];
@@ -48,14 +54,22 @@ $(function () {
 
     let albumCounter = 0;
     $(document).on("click", ".select", function () {
-        if (albumCounter >= 10) {
-            $('.addButton').remove();
-        } else {
-            let selectAlbum;
-            selectAlbum = $(this).closest('li').children('img').attr('src');
-            $('.albumArtList').append('<li class=""><image class="l-albumArt" src="' + selectAlbum + '"></li>');
+        let selectAlbum;
+        selectAlbum = $(this).closest('li').children('img').attr('src');
+        $('.albumArtList').append('<li class=""><image class="l-albumArt" src="' + selectAlbum + '"></li>');
+        if (albumCounter == 9) {
+            $('.addButton').removeClass('disp-block');
+            $('.addButton').addClass('disp-none');
+            $('.albumArtList')
+                .append('<button class="l-button txt-white bg-orange reset"><i class="fa-solid fa-rotate-right"></i></button>');
         }
         albumCounter++;
+    });
+    $(document).on("click", ".reset", function () {
+        $('.albumArtList').remove();
+        $('.addButton').removeClass('disp-none');
+        $('.addButton').addClass('disp-block');
+        $('reset').remove();
     })
 });
 

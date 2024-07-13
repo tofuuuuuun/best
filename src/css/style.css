@@ -14,7 +14,14 @@ main {
     margin: 0 auto;
     padding: 8em 1em 0 1em;
 }
-ul { padding-left: 0; }
+ul {
+    margin-block-start: 0;
+    margin-block-end: 0;
+    padding-left: 0;
+}
+
+
+
 li { list-style: none; }
 th,td { border-bottom: 1px solid #e6e6e6; padding: 1em 0.5em;}
 p { margin: 0; }
@@ -32,23 +39,31 @@ input {
 .disp-block { display: block; }
 .disp-inlineblock { display: inline-block; }
 .disp-inline { display: inline; }
+.disp-none{display: none!important;}
+
 .m-right-1em { margin-right: 1em; }
 .m-right-2em { margin-right: 2em; }
 .m-right-3em { margin-right: 3em; }
+
 .m-left-1em { margin-left: 1em; }
 .m-left-2em { margin-left: 2em;}
 .m-left-3em { margin-left: 3em;}
+
 .m-bottom-1em { margin-bottom: 1em; }
 .m-bottom-2em { margin-bottom: 2em; }
 .m-bottom-3em { margin-bottom: 3em; }
 .m-both-auto { margin-left: auto; margin-right: auto;}
+
 .padding-all-1em { padding: 1em; }
 .p-left-1em{ padding-left: 1em; }
 .p-left-2em{ padding-left: 2em; }
 .p-left-3em{ padding-left: 3em; }
+
 .font-wb { font-weight: bold; }
+
 .ta-left { text-align: left; }
 .ta-center { text-align: center; }
+
 /* 共通パーツ レイアウト */
 .l-albumArt {
     width: 220px;
@@ -60,9 +75,14 @@ input {
     width: 10em;
     padding: 12px 24px;
     border: none;
-    border-radius: 30px;
+    border-radius: 10px;
 }
-/* .l-button:hover { opacity: 0.5; } */
+
+.l-searchForm{
+display: flex;
+justify-content: space-around;
+}
+
 .txt-white { color: #fff; }
 
 /* 共通パーツ 背景色 */
@@ -78,6 +98,7 @@ input {
     /* grid-template-rows: repeat(3, 1fr); */
     grid-column-gap: 10px;
     grid-row-gap: 10px;
+    margin: 1em 0;
 }
 
 .addButton {
@@ -177,12 +198,14 @@ input {
 .modal-content {
     background: #fff;
     text-align: left;
-    padding: 1em 0;
     border-radius: 5px;
     box-shadow: 2px 2px 15px 1px #222222;
 }
 
-#artistName { width: 80%; }
+[name="artist"]{
+    width: 70%;
+    border-radius: 10px;
+}
 
 .albumItems {
     display: flex;
@@ -207,6 +230,7 @@ input {
 }
 
 .modalList{
+    margin: 1em 0;
     height: 400px;
     overflow-y: auto;
 }

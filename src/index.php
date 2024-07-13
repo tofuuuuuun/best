@@ -13,7 +13,7 @@ include("./common/header.php");
 
     <div class="l-albumList">
         <div>
-            <div class="l-albumArt addButton">
+            <div class="l-albumArt addButton disp-block">
                 <i class="fa-solid fa-plus"></i>
             </div>
             <ul class="albumArtList">
