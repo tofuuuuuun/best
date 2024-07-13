@@ -53,23 +53,35 @@ $(function () {
     }
 
     let albumCounter = 0;
+    let albumFlg = false;
     $(document).on("click", ".select", function () {
-        let selectAlbum;
-        selectAlbum = $(this).closest('li').children('img').attr('src');
-        $('.albumArtList').append('<li class=""><image class="l-albumArt" src="' + selectAlbum + '"></li>');
-        if (albumCounter == 9) {
+        if (albumCounter == 0) {
+
+        }
+        if (albumCounter <= 10) {
+            let selectAlbum;
+            selectAlbum = $(this).closest('li').children('img').attr('src');
+            $('.albumArtList').append('<li class=""><image class="l-albumArt" src="' + selectAlbum + '"></li>');
+            albumCounter++;
+        }
+        if (albumCounter == 10) {
             $('.addButton').removeClass('disp-block');
             $('.addButton').addClass('disp-none');
-            $('.albumArtList')
-                .append('<button class="l-button txt-white bg-orange reset"><i class="fa-solid fa-rotate-right"></i></button>');
+            $('.l-albumList')
+                .append('<div class="ta-center"><button class="l-button txt-white bg-orange reset"><i class="fa-solid fa-rotate-right"></i></button></div>');
+            $('.modal-container').removeClass('active');
         }
-        albumCounter++;
+        albumFlg = true;
     });
+
+
     $(document).on("click", ".reset", function () {
-        $('.albumArtList').remove();
+        albumCounter = 0;
+        console.log(albumCounter);
+        $('.albumArtList').children().remove();
         $('.addButton').removeClass('disp-none');
         $('.addButton').addClass('disp-block');
-        $('reset').remove();
+        $('.reset').remove();
     })
 });
 

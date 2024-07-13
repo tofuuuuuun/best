@@ -114,6 +114,7 @@ justify-content: space-around;
     box-shadow: none;
     transition-duration: 0.2s;
     background-color: #fcfcfc;
+    transform: scale(0.99,0.99) translateY(2px);
 }
 
 .fa-plus {
