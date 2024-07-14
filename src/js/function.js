@@ -57,7 +57,7 @@ $(function () {
             });
 
             $('.modalList')
-                .append('<li class="albumItems"><image class="albumImage" src="' + imageItems + '"><div class="l-albumInfo"><span class="albumName">' + albumName + '</span><span class="artistsName">' + artistsName.toString() + '</span></div><button class="l-button txt-white bg-orange select">選択</button></li>');
+                .append('<li class="albumItems"><image class="albumImage" src="' + imageItems + '"><div class="l-albumInfo"><span class="albumName">' + albumName + '</span><span class="artistsName">' + artistsName.toString() + '</span></div><button class="l-button txt-white bg-turquoise select">選択</button></li>');
             i++;
         }
     }
@@ -78,7 +78,7 @@ $(function () {
             $('.addButton').removeClass('disp-block');
             $('.addButton').addClass('disp-none');
             $('.l-albumList')
-                .append('<div class="ta-center"><button class="l-button txt-white bg-orange reset"><i class="fa-solid fa-rotate-right"></i></button></div>');
+                .append('<div class="ta-center"><button class="l-button txt-white bg-turquoise reset"><i class="fa-solid fa-rotate-right"></i></button></div>');
             $('.modal-container').removeClass('active');
         }
         albumFlg = true;

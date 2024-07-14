@@ -3,7 +3,7 @@
 // if (isset($_SESSION["logion_session"]) && $_SESSION["logion_session"] == false) {
 //     header('Location:http://localhost:8080/');
 // }
-$title = "test";
+$title = "BEST";
 // include("./database/connect.php");
 
 
@@ -14,7 +14,7 @@ include("./common/header.php");
     <div class="l-albumList">
         <div>
             <div class="l-albumArt addButton disp-block">
-                <i class="fa-solid fa-plus"></i>
+                <i class="fa-solid fa-plus txt-green"></i>
             </div>
             <ul class="albumArtList">
             </ul>

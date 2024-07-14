@@ -6,7 +6,7 @@
         <div class="modal-content padding-all-1em">
             <div class="l-searchForm ta-left">
                 <input type="text" name="artist" id="artistName" placeholder="アーティスト">
-                <button class="l-button txt-white bg-orange search">
+                <button class="l-button txt-white bg-turquoise search">
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </button>
             </div>
