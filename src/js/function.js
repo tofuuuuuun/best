@@ -26,6 +26,7 @@ $(function () {
                 artistName: artistName
             }
         }).done(function (result) {
+            console.log(result);
             $('searchForm').addClass('m-bottom-2em');
             albumArt(result);
         }).fail(function () {
@@ -37,6 +38,7 @@ $(function () {
         resultItemCount = Object.keys(result['items']).length;
         var imageItems;
         var albumName;
+
         if ($('.modal-content').hasClass('modalList')) {
 
         } else {
@@ -46,8 +48,16 @@ $(function () {
         for (let i = 0; i <= resultItemCount - 1;) {
             imageItems = result['items'][i]['images'][1]['url'];
             albumName = result['items'][i]['name'];
+
+            var artistsName = new Array();
+            var tempArtistsName = new Array();
+            tempArtistsName = result['items'][i]['artists'];
+            tempArtistsName.forEach(value => {
+                artistsName.push(value.name);
+            });
+
             $('.modalList')
-                .append('<li class="albumItems"><image class="albumImage" src="' + imageItems + '"><span class="albumName">' + albumName + '</span><button class="l-button txt-white bg-orange select">選択</button></li>');
+                .append('<li class="albumItems"><image class="albumImage" src="' + imageItems + '"><div class="l-albumInfo"><span class="albumName">' + albumName + '</span><span class="artistsName">' + artistsName.toString() + '</span></div><button class="l-button txt-white bg-orange select">選択</button></li>');
             i++;
         }
     }
