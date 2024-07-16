@@ -15,7 +15,7 @@ main {
     width: 1200px;
     max-width: 100%;
     margin: 0 auto;
-    padding: 8em 1em 0 1em;
+    padding: 10em 1em 0 1em;
 }
 h1{
     margin-block-start: 0;
@@ -60,6 +60,7 @@ input {
 .m-bottom-3em { margin-bottom: 3em; }
 .m-both-auto { margin-left: auto; margin-right: auto;}
 
+.padding-all-05em { padding: 0.5em; }
 .padding-all-1em { padding: 1em; }
 .p-left-1em{ padding-left: 1em; }
 .p-left-2em{ padding-left: 2em; }
@@ -71,6 +72,11 @@ input {
 .ta-center { text-align: center; }
 
 /* 共通パーツ レイアウト */
+.l-header{
+    height: 100px;
+    padding: 0.5em 1em 0.5em 1em;
+}
+
 .l-albumArt {
     width: 220px;
     height: 220px;
@@ -78,10 +84,11 @@ input {
 }
 
 .l-button {
-    width: 10em;
+    width: 7em;
     padding: 12px 24px;
     border: none;
     border-radius: 10px;
+    cursor: pointer;
 }
 
 .l-searchForm{
@@ -94,8 +101,10 @@ justify-content: space-around;
     flex-direction: column;
 }
 
-.l-header{
-    padding: 0.5em 1em 0.5em 1em;
+.l-selectType{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
 
 .txt-white { color: #F1F8E9; }
@@ -115,7 +124,8 @@ justify-content: space-around;
 
 /* 固有パーツ */
 .headerLogo{
-    width: 10%;
+    width: 110px;
+    max-width: 100%;
 }
 
 .albumArtList {
@@ -229,7 +239,7 @@ justify-content: space-around;
 }
 
 [name="artist"]{
-    width: 70%;
+    width: 50%;
     border-radius: 10px;
 }
 
@@ -266,4 +276,29 @@ justify-content: space-around;
     margin: 1em 0;
     height: 400px;
     overflow-y: auto;
+}
+
+input[type="radio"]:checked + label{
+background: #009688;
+color: #F1F8E9;
+}
+
+[name="type"]{
+    display: none;
+}
+
+.typeLabel{
+    background: #e2e2e2;
+    cursor: pointer;
+}
+
+#singleLabel{
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-right: 1px solid #bababa;
+}
+
+#albumLabel{
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px
 }

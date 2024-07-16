@@ -15,9 +15,12 @@ $session->requestCredentialsToken();
 $accessToken = $session->getAccessToken();
 $api->setAccessToken($accessToken);
 
+$result = "";
+
 $result = $api->search($artistName, 'artist');
 $artistId = $result->{'artists'}->{'items'}[0]->{'id'};
-$result = $api->getArtistAlbums($artistId, ['album_type' => 'album', 'country' => 'JP']);
+$result = $api->getArtistAlbums($artistId, ['album_type' => 'album', 'limit' => 50, 'country' => 'JP']);
+$result = $api->getArtistAlbums($artistId, ['album_type' => 'single', 'limit' => 50, 'country' => 'JP']);
 
 echo json_encode($result);
 exit;

@@ -26,6 +26,7 @@ $(function () {
                 artistName: artistName
             }
         }).done(function (result) {
+            $('.modalList').remove();
             console.log(result);
             $('searchForm').addClass('m-bottom-2em');
             albumArt(result);
