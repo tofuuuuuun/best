@@ -12,10 +12,41 @@ $(function () {
         container.removeClass('active');
     });
 
-    $('.search').on('click', function () {
-        $('.modalList').children().remove();
+    $('#artistName').on('input', function () {
+
         let artistName;
         artistName = $('#artistName').val();
+
+        // $.ajax({
+        //     url: "./js/ajax/searchSpotify.php",
+        //     cache: false,
+        //     async: false,
+        //     type: "GET",
+        //     dataType: "json",
+        //     data: {
+        //         artistName: artistName,
+        //         type: type
+        //     }
+        // }).done(function (result) {
+        //     $('.modalList').remove();
+        //     console.log(result);
+        //     $('searchForm').addClass('m-bottom-2em');
+        //     albumArt(result);
+        // }).fail(function () {
+        // });
+    });
+
+
+
+
+    $('.search').on('click', function () {
+        $('.modalList').children().remove();
+
+        let artistName;
+        let type;
+
+        artistName = $('#artistName').val();
+        type = $('input:radio[name="type"]:checked').val();
         $.ajax({
             url: "./js/ajax/searchSpotify.php",
             cache: false,
@@ -23,7 +54,8 @@ $(function () {
             type: "GET",
             dataType: "json",
             data: {
-                artistName: artistName
+                artistName: artistName,
+                type: type
             }
         }).done(function (result) {
             $('.modalList').remove();

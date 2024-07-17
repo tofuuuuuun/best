@@ -278,11 +278,6 @@ justify-content: space-around;
     overflow-y: auto;
 }
 
-input[type="radio"]:checked + label{
-background: #009688;
-color: #F1F8E9;
-}
-
 [name="type"]{
     display: none;
 }
@@ -290,6 +285,11 @@ color: #F1F8E9;
 .typeLabel{
     background: #e2e2e2;
     cursor: pointer;
+}
+
+input[type="radio"]:checked + label{
+background: #009688;
+color: #F1F8E9;
 }
 
 #singleLabel{
