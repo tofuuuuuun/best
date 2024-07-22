@@ -5,7 +5,8 @@
         <div class="modal-close"><i class="fa-solid fa-xmark"></i></div>
         <div class="modal-content padding-all-1em">
             <div class="l-searchForm ta-left">
-                <input type="text" name="artist" id="artistName" placeholder="アーティスト名">
+                <input type="text" name="artist" id="artistName" placeholder="アーティスト名" data-artist_id="">
+                <div class="l-autocomplete"></div>
                 <div class="l-selectType">
                     <input type="radio" name="type" id="single" value="single" />
                     <label for="single" class="typeLabel padding-all-05em" id="singleLabel">シングル</label>

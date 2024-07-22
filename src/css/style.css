@@ -47,6 +47,8 @@ input {
 .disp-inline { display: inline; }
 .disp-none{display: none!important;}
 
+.m-top-5px { margin-top: 5px; }
+
 .m-right-1em { margin-right: 1em; }
 .m-right-2em { margin-right: 2em; }
 .m-right-3em { margin-right: 3em; }
@@ -55,6 +57,7 @@ input {
 .m-left-2em { margin-left: 2em;}
 .m-left-3em { margin-left: 3em;}
 
+.m-bottom-5px { margin-bottom:5px }
 .m-bottom-1em { margin-bottom: 1em; }
 .m-bottom-2em { margin-bottom: 2em; }
 .m-bottom-3em { margin-bottom: 3em; }
@@ -106,6 +109,24 @@ justify-content: space-around;
     flex-direction: row;
     align-items: center;
 }
+
+.l-autocomplete{
+    position: absolute;
+    left: 20px;
+    top: 60px;
+}
+
+.l-searchArtistImage{
+    width: 25%;
+    border-radius: 50%;
+}
+
+.l-artistInfo{
+    width: 60%;
+    padding-left: 1em;
+}
+
+.l-autocomplete{ width: 50%; }
 
 .txt-white { color: #F1F8E9; }
 .txt-green {color: #009688;}
@@ -288,8 +309,8 @@ justify-content: space-around;
 }
 
 input[type="radio"]:checked + label{
-background: #009688;
-color: #F1F8E9;
+    background: #009688;
+    color: #F1F8E9;
 }
 
 #singleLabel{
@@ -301,4 +322,36 @@ color: #F1F8E9;
 #albumLabel{
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px
+}
+
+.artistItems{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    border-top: 1px solid #cacaca;
+    padding: 5px 0;
+    cursor: pointer;
+}
+
+.artistItems:last-child {
+    border-bottom: 1px solid #cacaca;
+}
+
+.autocompleteList{
+    height: 200px;
+    background: #fff;
+    border-radius: 10px;
+    overflow: auto;
+}
+
+.autocompleteList::-webkit-scrollbar{
+    background: #fff;
+    width: 5px;
+    height: 15px;
+    border-radius: 10px;
+}
+
+.autocompleteList::-webkit-scrollbar-thumb {
+    background-color: #009688;
+    border-radius: 10px;
 }
