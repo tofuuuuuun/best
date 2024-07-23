@@ -14,13 +14,9 @@ $(function () {
     });
 
     // 検索候補
-    $('#artistName').on('change', function () {
-        //  TODO: 入力のたびに検索候補がでてきてしまう
-        if ($('.l-autocomplete').hasClass('autocompleteList')) {
-            $('.autocompleteList').remove();
-        } else {
-            $('.l-autocomplete').append('<ul class="autocompleteList padding-all-1em"></ul >');
-        }
+    $('#artistName').on('input', function () {
+        $('.autocompleteList').remove();
+        $('.l-autocomplete').append('<ul class="autocompleteList padding-all-1em"></ul >');
 
         let artistName;
         artistName = $('#artistName').val();
