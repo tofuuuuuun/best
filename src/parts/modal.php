@@ -8,7 +8,7 @@
                 <input type="text" name="artist" id="artistName" placeholder="アーティスト名" data-artist_id="">
                 <div class="l-autocomplete"></div>
                 <div class="l-selectType">
-                    <input type="radio" name="type" id="single" value="single" />
+                    <input type="radio" name="type" id="single" value="single" checked />
                     <label for="single" class="typeLabel padding-all-05em" id="singleLabel">シングル</label>
                     <input type="radio" name="type" id="album" value="album" />
                     <label for="album" class="typeLabel padding-all-05em" id="albumLabel">アルバム</label>

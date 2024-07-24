@@ -32,7 +32,6 @@ $(function () {
             }
         }).done(function (result) {
             $('.modalList').remove();
-            console.log(result);
             artistAutocomplete(result)
         }).fail(function () {
         });
@@ -85,6 +84,7 @@ $(function () {
         }).done(function (result) {
             $('.modalList').remove();
             $('searchForm').addClass('m-bottom-2em');
+            console.log(result);
             albumArt(result);
         }).fail(function () {
         });
@@ -95,6 +95,7 @@ $(function () {
         resultItemCount = Object.keys(result['items']).length;
         var imageItems;
         var albumName;
+        var release;
 
         if ($('.modal-content').hasClass('modalList')) {
 
@@ -105,6 +106,7 @@ $(function () {
         for (let i = 0; i <= resultItemCount - 1;) {
             imageItems = result['items'][i]['images'][1]['url'];
             albumName = result['items'][i]['name'];
+            release = result['items'][i]['release_date'].substring(0, 4);
 
             var artistsName = new Array();
             var tempArtistsName = new Array();
@@ -114,7 +116,7 @@ $(function () {
             });
 
             $('.modalList')
-                .append('<li class="albumItems"><image class="albumImage" src="' + imageItems + '"><div class="l-albumInfo"><span class="albumName">' + albumName + '</span><span class="artistsName">' + artistsName.toString() + '</span></div><button class="l-button txt-white bg-turquoise select">選択</button></li>');
+                .append('<li class="albumItems"><image class="albumImage" src="' + imageItems + '"><div class="l-albumInfo"><span class="albumName">' + albumName + '(' + release + ')' + '</span><span class="artistsName">' + artistsName.toString() + '</span></div><button class="l-button txt-white bg-turquoise select">選択</button></li>');
             i++;
         }
     }

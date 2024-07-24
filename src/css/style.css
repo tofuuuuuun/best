@@ -83,7 +83,8 @@ input {
 .l-albumArt {
     width: 220px;
     height: 220px;
-    border: 1px solid #fcfcfc;
+    box-shadow: 2px 2px 15px 1px #1a1a1a;
+    border-radius: 5px;
 }
 
 .l-button {
