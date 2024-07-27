@@ -279,6 +279,25 @@ justify-content: space-around;
     border-bottom: 1px solid #cacaca;
 }
 
+.albumListItem{
+    position: relative;
+}
+
+.albumListItem:hover{
+    opacity: 0.5;
+}
+
+.albumRemove{
+    position: absolute;
+    top: -30px;
+    right: -30px;
+    width: 30px;
+    height: 30px;
+    font-size: 30px;
+    color: #F1F8E9;
+    cursor: pointer;
+}
+
 .albumImage {
     width: 20%;
     height: auto;
@@ -345,14 +364,14 @@ input[type="radio"]:checked + label{
     overflow: auto;
 }
 
-.autocompleteList::-webkit-scrollbar{
+.modalList::-webkit-scrollbar, .autocompleteList::-webkit-scrollbar{
     background: #fff;
     width: 5px;
     height: 15px;
     border-radius: 10px;
 }
 
-.autocompleteList::-webkit-scrollbar-thumb {
+.modalList::-webkit-scrollbar-thumb, .autocompleteList::-webkit-scrollbar-thumb {
     background-color: #009688;
     border-radius: 10px;
 }
