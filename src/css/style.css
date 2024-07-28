@@ -162,7 +162,7 @@ justify-content: space-around;
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 10px;
+    border-radius: 5px;
     border: none;
     box-shadow: 2px 2px 15px 1px #1a1a1a;
     background-color: #F1F8E9;
@@ -179,25 +179,6 @@ justify-content: space-around;
     font-size: 4em;
 }
 
-/* モーダル */
-.modal-open {
-    position: fixed;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    top: 50%;
-    left: 50%;
-    width: 300px;
-    height: 50px;
-    font-weight: bold;
-    color: #fff;
-    background: #000;
-    margin: auto;
-    cursor: pointer;
-    transform: translate(-50%, -50%);
-}
-
-/*モーダル本体の指定 + モーダル外側の背景の指定*/
 .modal-container {
     position: fixed;
     top: 0;
@@ -214,7 +195,6 @@ justify-content: space-around;
     box-sizing: border-box;
 }
 
-/*モーダル本体の擬似要素の指定*/
 .modal-container:before {
     content: "";
     display: inline-block;
@@ -222,13 +202,11 @@ justify-content: space-around;
     height: 100%;
 }
 
-/*モーダル本体に「active」クラス付与した時のスタイル*/
 .modal-container.active {
     opacity: 1;
     visibility: visible;
 }
 
-/*モーダル枠の指定*/
 .modal-body {
     position: relative;
     display: inline-block;
@@ -237,7 +215,6 @@ justify-content: space-around;
     width: 90%;
 }
 
-/*モーダルを閉じるボタンの指定*/
 .modal-close {
     position: absolute;
     display: flex;
@@ -252,9 +229,9 @@ justify-content: space-around;
     cursor: pointer;
 }
 
-/*モーダル内のコンテンツの指定*/
 .modal-content {
     background: #F1F8E9;
+    padding: 1em;
     text-align: left;
     border-radius: 5px;
     box-shadow: 2px 2px 15px 1px #222222;
@@ -281,6 +258,7 @@ justify-content: space-around;
 
 .albumListItem{
     position: relative;
+    width: 100%;
 }
 
 .albumListItem:hover{
@@ -360,7 +338,10 @@ input[type="radio"]:checked + label{
 .autocompleteList{
     height: 200px;
     background: #fff;
-    border-radius: 10px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 10px;
     overflow: auto;
 }
 
@@ -374,4 +355,100 @@ input[type="radio"]:checked + label{
 .modalList::-webkit-scrollbar-thumb, .autocompleteList::-webkit-scrollbar-thumb {
     background-color: #009688;
     border-radius: 10px;
+}
+
+
+@media (max-width:640px) {
+    html{ font-size: 12px;}
+main {
+    width: 100%;
+    padding: 8em 1em 0 1em;
+}
+
+.l-header{ height: auto;}
+.l-albumArt {
+    width: 140px;
+    height: 140px;
+}
+
+.l-button {
+    width: 6em;
+    padding: 12px 15px;
+}
+
+.l-autocomplete{
+    left: 1%;
+    top: 95%;
+}
+
+.l-searchArtistImage { width: 25%; }
+
+.l-artistInfo { width: 60%; }
+
+
+.headerLogo { width: 58px; }
+.albumArtList {
+    grid-template-columns: repeat(auto-fill, 170px);
+    justify-items: center;
+    justify-content: center;
+}
+
+.modal-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding:0;
+    overflow: auto;
+    opacity: 0;
+    visibility: hidden;
+    transition: .3s;
+    box-sizing: border-box;
+}
+
+.modal-container:before {
+    content: "";
+    display: inline-block;
+    vertical-align: middle;
+    height: 100%;
+}
+
+.modal-container.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-body {
+    position: absolute;
+    top: 20%;
+    left: 5%;
+    max-width: 640px;
+    width: 90%;
+}
+
+.modal-close {
+    top: -40px;
+    right: 0;
+    left: 90%;
+}
+
+.modal-content {
+    background: #F1F8E9;
+    text-align: left;
+    padding: 1em 0.5em;
+    border-radius: 5px;
+    box-shadow: 2px 2px 15px 1px #222222;
+}
+
+.typeLabel { font-size: 10px; }
+
+[name="artist"] { width: 40%; }
+
+.albumRemove{
+    right: 0;
+}
+
+
+
 }

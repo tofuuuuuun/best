@@ -13,7 +13,6 @@ $(function () {
         container.removeClass('active');
     });
 
-    // 検索候補
     $('#artistName').on('input', function () {
         $('.autocompleteList').remove();
         $('.l-autocomplete').append('<ul class="autocompleteList padding-all-1em"></ul >');
@@ -134,7 +133,7 @@ $(function () {
             $('.addButton').removeClass('disp-block');
             $('.addButton').addClass('disp-none');
             $('.l-albumList')
-                .append('<div class="ta-center"><button class="l-button txt-white bg-turquoise reset"><i class="fa-solid fa-rotate-right"></i></button></div>');
+                .append('<div class="ta-center"><button class="l-button txt-white bg-turquoise reset">やりなおす<i class="fa-solid fa-rotate-right"></i></button></div>');
             $('.modal-container').removeClass('active');
         }
         albumFlg = true;
@@ -152,6 +151,11 @@ $(function () {
     $(document).on("click", ".albumRemove", function () {
         $(this).parent().remove();
         albumCounter--;
+        if (albumCounter == 9) {
+            $('.addButton').removeClass('disp-none');
+            $('.addButton').addClass('disp-block');
+        }
+
     })
 
     $(document).on("click", ".reset", function () {
