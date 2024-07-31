@@ -122,20 +122,23 @@ $(function () {
     let albumCounter = 0;
     let albumFlg = false;
     $(document).on("click", ".select", function () {
-        if (albumCounter <= 10) {
-            let selectAlbum;
-            selectAlbum = $(this).closest('li').children('img').attr('src');
-            $('.albumArtList').append('<li class="albumListItem"><image class="l-albumArt" src="' + selectAlbum + '"></li>');
-            albumCounter++;
-        }
+        albumCounter++;
 
         if (albumCounter == 10) {
             $('.addButton').removeClass('disp-block');
             $('.addButton').addClass('disp-none');
             $('.l-albumList')
-                .append('<div class="ta-center"><button class="l-button txt-white bg-turquoise reset">やりなおす<i class="fa-solid fa-rotate-right"></i></button></div>');
+                .append('<div class="ta-center"><button class="l-button txt-white bg-turquoise reset"><i class="fa-solid fa-rotate-right"></i></button></div>');
             $('.modal-container').removeClass('active');
         }
+
+        if (albumCounter <= 10) {
+            let selectAlbum;
+            selectAlbum = $(this).closest('li').children('img').attr('src');
+            $('.albumArtList').append('<li class="albumListItem"><image class="l-albumArt" src="' + selectAlbum + '"></li>');
+
+        }
+
         albumFlg = true;
     });
 
