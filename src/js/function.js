@@ -14,6 +14,10 @@ $(function () {
     });
 
     $('#artistName').on('input', function () {
+        if ($('#artistName').val() == "") {
+            $('.autocompleteList').remove();
+        }
+
         $('.autocompleteList').remove();
         $('.l-autocomplete').append('<ul class="autocompleteList padding-all-1em"></ul >');
 
@@ -55,6 +59,7 @@ $(function () {
         $('#artistName').val($(this).text());
         $('#artistName').attr('data-artist_id', $(this).data('artist_id'));
         $('.autocompleteList').remove();
+        $('.search').trigger('click');
     });
 
 

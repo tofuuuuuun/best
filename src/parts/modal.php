@@ -13,7 +13,7 @@
                     <input type="radio" name="type" id="album" value="album" />
                     <label for="album" class="typeLabel padding-all-05em" id="albumLabel">アルバム</label>
                 </div>
-                <button class="l-button txt-white bg-turquoise search">
+                <button class="l-button txt-white bg-turquoise search" onclick="searchArtist()">
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </button>
             </div>
