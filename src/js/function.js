@@ -1,30 +1,33 @@
 $(function () {
-    var open = $('.addButton');
+    var addButton = $('.addButton');
     var close = $('.modal-close');
     var container = $('.modal-container');
+    var artistName = $('#artistName');
+    var modalList = $('.modalList');
+    var autocompleteList = $('.autocompleteList');
+    var reset = $('.reset');
 
-    open.on('click', function () {
+    addButton.on('click', function () {
         container.addClass('active');
         $('.modalList').remove();
-        $('.autocompleteList').remove();
-        $('#artistName').val('');
+        autocompleteList.remove();
+        artistName.val('');
+        artistName.attr('data-artist_id', '');
         return false;
     });
     close.on('click', function () {
         container.removeClass('active');
     });
 
-    $('#artistName').on('input', function () {
+    artistName.on('input', function () {
         $('.autocompleteList').remove();
-        if ($('#artistName').val() == "") {
+        if ($('.autocompleteList').val() == "") {
             $('.autocompleteList').remove();
-            $('.modalList').remove();
+            modalList.remove();
         } else {
             $('.l-autocomplete').append('<ul class="autocompleteList padding-all-1em"></ul>');
         }
-
-        let artistName = $('#artistName').val();
-
+        let data_artistName = artistName.val();
         $.ajax({
             url: "./js/ajax/searchArtists.php",
             cache: false,
@@ -32,19 +35,19 @@ $(function () {
             type: "GET",
             dataType: "json",
             data: {
-                artistName: artistName,
+                artistName: data_artistName,
             }
         }).done(function (result) {
-            $('.modalList').remove();
-            artistAutocomplete(result)
+            modalList.remove();
+            artistAutocomplete(result);
         }).fail(function () {
+            $('.autocompleteList').append('<li class="artistItems">データの取得に失敗しました</li>');
         });
     });
 
     function artistAutocomplete(result) {
         let resultItemCount = Object.keys(result['items']).length;
         let imageItems;
-
         for (let i = 0; i <= resultItemCount - 1;) {
             imageItems = result['items'][i]['images'][1]['url'];
             searchArtistName = result['items'][i]['name'];
@@ -55,19 +58,20 @@ $(function () {
     }
 
     $(document).on("click", ".artistItems", function () {
-        $('#artistName').val($(this).text());
-        let tmpArtistId = $(this).attr('data-artist_id');
-        $('#artistName').attr('data-artist_id', tmpArtistId);
+        artistName.val($(this).text());
+        let temp = document.getElementById("artistName")
+        artistName.attr('data-artist_id', $(this).attr('data-artist_id'));
         $('.autocompleteList').remove();
         $('.search').trigger('click');
     });
 
     $('.search').on('click', function () {
         $('.autocompleteList').remove();
+        $('.modalList').remove();
         $('.modalList').children().remove();
-        let artistName = $('#artistName').val();
+        let search_artistName = artistName.val();
         let type = $('[name=typeLabel]').val();
-        let artistId = $('#artistName').attr('data-artist_id');
+        let artistId = artistName.attr('data-artist_id');
         $.ajax({
             url: "./js/ajax/searchSpotify.php",
             cache: false,
@@ -75,15 +79,16 @@ $(function () {
             type: "GET",
             dataType: "json",
             data: {
-                artistName: artistName,
+                artistName: search_artistName,
                 type: type,
                 artistId: artistId
             }
         }).done(function (result) {
-            $('.modalList').remove();
+            $('modalList').remove();
             $('searchForm').addClass('m-bottom-2em');
             albumArt(result);
         }).fail(function () {
+            $('.modalList').append('<li class="albumItems">データの取得に失敗しました</li>');
         });
     });
 
@@ -92,27 +97,21 @@ $(function () {
         let imageItems;
         let albumName;
         let release;
-
-        // if ($('.modal-content').hasClass('modalList')) {
-
-        // } else {
-        //     $('.modal-content').append('<ul class="modalList"></ul >');
-        // }
         if (!$('.modal-content').hasClass('modalList')) {
             $('.modal-content').append('<ul class="modalList"></ul >');
         }
         for (let i = 0; i <= resultItemCount - 1;) {
+            let artistsName = new Array();
+            let tempArtistsName = new Array();
+
             imageItems = result['items'][i]['images'][1]['url'];
             albumName = result['items'][i]['name'];
             release = result['items'][i]['release_date'].substring(0, 4);
 
-            let artistsName = new Array();
-            let tempArtistsName = new Array();
             tempArtistsName = result['items'][i]['artists'];
             tempArtistsName.forEach(value => {
                 artistsName.push(value.name);
             });
-
             $('.modalList').append('<li class="albumItems"><image class="albumImage" src="' + imageItems + '"><div class="l-albumInfo"><span class="albumName">' + albumName + '(' + release + ')' + '</span><span class="artistsName">' + artistsName.toString() + '</span></div><button class="l-button txt-white bg-turquoise select">選択</button></li>');
             i++;
         }
@@ -121,10 +120,9 @@ $(function () {
     let albumCounter = 0;
     $(document).on("click", ".select", function () {
         albumCounter++;
-
         if (albumCounter == 10) {
-            $('.addButton').removeClass('disp-block');
-            $('.addButton').addClass('disp-none');
+            addButton.removeClass('disp-block');
+            addButton.addClass('disp-none');
             $('.l-albumList').append('<div class="ta-center"><button class="l-button txt-white bg-turquoise reset"><i class="fa-solid fa-rotate-right"></i></button></div>');
             $('.modal-container').removeClass('active');
         }
@@ -147,17 +145,18 @@ $(function () {
     $(document).on("click", ".albumRemove", function () {
         $(this).parent().remove();
         albumCounter--;
-        if (albumCounter == 9) {
-            $('.addButton').removeClass('disp-none');
-            $('.addButton').addClass('disp-block');
+        if (albumCounter <= 10) {
+            addButton.removeClass('disp-none');
+            addButton.addClass('disp-block');
+            reset.removeClass('disp-none');
         }
     })
 
     $(document).on("click", ".reset", function () {
         albumCounter = 0;
         $('.albumArtList').children().remove();
-        $('.addButton').removeClass('disp-none');
-        $('.addButton').addClass('disp-block');
+        addButton.removeClass('disp-none');
+        addButton.addClass('disp-block');
         $('.reset').remove();
     })
 });
