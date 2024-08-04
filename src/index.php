@@ -12,7 +12,7 @@ include("./common/header.php");
         <div class="l-albumList">
             <ul class="albumArtList"></ul>
             <div class="albumAddButton">
-                <div class="l-albumArt albumArtList addButton disp-block">
+                <div class="l-albumArt albumAddButton addButton disp-block">
                     <i class="fa-solid fa-plus txt-green"></i>
                 </div>
             </div>
