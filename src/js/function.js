@@ -7,6 +7,7 @@ $(function () {
     var autocompleteList = $('.autocompleteList');
     var reset = $('.reset');
 
+    // モーダルオープン
     addButton.on('click', function () {
         container.addClass('active');
         $('.modalList').remove();
@@ -19,6 +20,7 @@ $(function () {
         container.removeClass('active');
     });
 
+    // 検索候補
     artistName.on('input', function () {
         $('.autocompleteList').remove();
         if ($('.autocompleteList').val() == "") {
@@ -38,33 +40,36 @@ $(function () {
                 artistName: data_artistName,
             }
         }).done(function (result) {
+            console.log(result);
             modalList.remove();
             artistAutocomplete(result);
         }).fail(function () {
             $('.autocompleteList').append('<li class="artistItems">データの取得に失敗しました</li>');
         });
     });
-
     function artistAutocomplete(result) {
         let resultItemCount = Object.keys(result['items']).length;
         let imageItems;
         for (let i = 0; i <= resultItemCount - 1;) {
-            imageItems = result['items'][i]['images'][1]['url'];
-            searchArtistName = result['items'][i]['name'];
-            searchArtistId = result['items'][i]['id'];
-            $('.autocompleteList').append('<li class="artistItems" data-artist_id="' + searchArtistId + '"><image class="l-searchArtistImage artistImage" src="' + imageItems + '"><div class="l-artistInfo"><span class="searchArtistName font-wb">' + searchArtistName + '</span></div></li>');
+            let searchArtistName = result['items'][i]['name'];
+            let searchArtistId = result['items'][i]['id'];
+            if (!result['items'][i]['images'].length) {
+                $('.autocompleteList').append('<li class="artistItems" data-artist_id="' + searchArtistId + '"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" class="l-searchArtistImage artistImage"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L353.3 251.6C407.9 237 448 187.2 448 128C448 57.3 390.7 0 320 0C250.2 0 193.5 55.8 192 125.2L38.8 5.1zM264.3 304.3C170.5 309.4 96 387.2 96 482.3c0 16.4 13.3 29.7 29.7 29.7l388.6 0c3.9 0 7.6-.7 11-2.1l-261-205.6z"/></svg><div class="l-artistInfo"><span class="searchArtistName font-wb">' + searchArtistName + '</span></div></li>');
+            } else {
+                imageItems = result['items'][i]['images'][1]['url'];
+                $('.autocompleteList').append('<li class="artistItems" data-artist_id="' + searchArtistId + '"><image class="l-searchArtistImage artistImage" src="' + imageItems + '"><div class="l-artistInfo"><span class="searchArtistName font-wb">' + searchArtistName + '</span></div></li>');
+            }
             i++;
         }
     }
-
     $(document).on("click", ".artistItems", function () {
         artistName.val($(this).text());
-        let temp = document.getElementById("artistName")
         artistName.attr('data-artist_id', $(this).attr('data-artist_id'));
         $('.autocompleteList').remove();
         $('.search').trigger('click');
     });
 
+    // 検索
     $('.search').on('click', function () {
         $('.autocompleteList').remove();
         $('.modalList').remove();
@@ -94,9 +99,12 @@ $(function () {
 
     function albumArt(result) {
         let resultItemCount = Object.keys(result['items']).length;
-        let imageItems;
-        let albumName;
-        let release;
+        let allList = $('.albumArtList').find('li');
+        var listArray = [];
+        allList.each(function () {
+            listArray.push($(this).attr('data-listitems_id'));
+        })
+
         if (!$('.modal-content').hasClass('modalList')) {
             $('.modal-content').append('<ul class="modalList"></ul >');
         }
@@ -104,35 +112,43 @@ $(function () {
             let artistsName = new Array();
             let tempArtistsName = new Array();
 
-            imageItems = result['items'][i]['images'][1]['url'];
-            albumName = result['items'][i]['name'];
-            release = result['items'][i]['release_date'].substring(0, 4);
+            let imageItems = result['items'][i]['images'][1]['url'];
+            let albumName = result['items'][i]['name'];
+            let release = result['items'][i]['release_date'].substring(0, 4);
+            let albumId = result['items'][i]['id'];
 
             tempArtistsName = result['items'][i]['artists'];
             tempArtistsName.forEach(value => {
                 artistsName.push(value.name);
             });
-            $('.modalList').append('<li class="albumItems"><image class="albumImage" src="' + imageItems + '"><div class="l-albumInfo"><span class="albumName">' + albumName + '(' + release + ')' + '</span><span class="artistsName">' + artistsName.toString() + '</span></div><button class="l-button txt-white bg-turquoise select">選択</button></li>');
+            if ($.inArray(albumId, listArray) != -1) {
+                $('.modalList').append('<li class="albumItems" data-album_id="' + albumId + '" data-name="' + albumName + '" data-artist="' + artistsName.toString() + '"><image class="albumImage" src="' + imageItems + '"><div class="l-albumInfo"><span class="albumName">' + albumName + '(' + release + ')' + '</span><span class="artistsName">' + artistsName.toString() + '</span></div><button class="l-button txt-white bg-orange select" disabled>選択中</button></li>');
+            } else {
+                $('.modalList').append('<li class="albumItems" data-album_id="' + albumId + '" data-name="' + albumName + '" data-artist="' + artistsName.toString() + '"><image class="albumImage" src="' + imageItems + '"><div class="l-albumInfo"><span class="albumName">' + albumName + '(' + release + ')' + '</span><span class="artistsName">' + artistsName.toString() + '</span></div><button class="l-button txt-white bg-turquoise select">選択</button></li>');
+            }
             i++;
         }
     }
 
-    let albumCounter = 0;
     $(document).on("click", ".select", function () {
-        albumCounter++;
-        if (albumCounter == 10) {
+        if ($('.albumListItem').length == 10) {
             addButton.removeClass('disp-block');
             addButton.addClass('disp-none');
-            $('.l-albumList').append('<div class="ta-center"><button class="l-button txt-white bg-turquoise reset"><i class="fa-solid fa-rotate-right"></i></button></div>');
+            $('.resetArea').append('<div class="ta-center resetWrapper"><button class="l-button txt-white bg-turquoise reset"><i class="fa-solid fa-rotate-right"></i></button></div>');
             $('.modal-container').removeClass('active');
         }
-        if (albumCounter <= 10) {
-            let selectAlbum;
-            selectAlbum = $(this).closest('li').children('img').attr('src');
-            $('.albumArtList').append('<li class="albumListItem"><image class="l-albumArt" src="' + selectAlbum + '"></li>');
+        if ($('.albumListItem').length <= 10) {
+            let id = $(this).parent().attr('data-album_id');
+            let name = $(this).parent().attr('data-name');
+            let artist = $(this).parent().attr('data-artist');
+            let selectAlbum = $(this).closest('li').children('img').attr('src');
+
+            $(this).text('選択中');
+            $(this).removeClass('bg-turquoise');
+            $(this).addClass('bg-orange');
+            $('.albumArtList').append('<li class="albumListItem" data-listitems_id="' + id + '"><image class="l-albumArt m-bottom-05em" src="' + selectAlbum + '"><span class="selectName">' + name + '</span><span>' + artist + '</span></li>');
         }
     });
-
     $(document).on({
         'mouseenter': function () {
             $(this).append('<span class="albumRemove"><i class="fa-solid fa-xmark"></i></span>');
@@ -144,8 +160,7 @@ $(function () {
 
     $(document).on("click", ".albumRemove", function () {
         $(this).parent().remove();
-        albumCounter--;
-        if (albumCounter <= 10) {
+        if ($('.albumListItem').length <= 10) {
             addButton.removeClass('disp-none');
             addButton.addClass('disp-block');
             reset.removeClass('disp-none');
@@ -153,7 +168,6 @@ $(function () {
     })
 
     $(document).on("click", ".reset", function () {
-        albumCounter = 0;
         $('.albumArtList').children().remove();
         addButton.removeClass('disp-none');
         addButton.addClass('disp-block');
