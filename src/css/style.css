@@ -338,6 +338,12 @@ input[type="radio"]:checked + label{
     overflow: auto;
 }
 
+
+.counterText{
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
 .modalList::-webkit-scrollbar, .autocompleteList::-webkit-scrollbar{
     background: #fff;
     width: 5px;

@@ -17,6 +17,9 @@
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </button>
             </div>
+            <div>
+                <p>あと<span id="choiceCounter" class="counterText">10</span><span class="counterText">枚</span>選ぼう！</p>
+            </div>
         </div>
     </div>
 </div>

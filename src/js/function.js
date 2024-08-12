@@ -6,6 +6,7 @@ $(function () {
     var modalList = $('.modalList');
     var autocompleteList = $('.autocompleteList');
     var reset = $('.reset');
+    var count = 10;
 
     // モーダルオープン
     addButton.on('click', function () {
@@ -14,6 +15,7 @@ $(function () {
         autocompleteList.remove();
         artistName.val('');
         artistName.attr('data-artist_id', '');
+        $('#choiceCounter').text(count);
         return false;
     });
     close.on('click', function () {
@@ -130,6 +132,9 @@ $(function () {
     }
 
     $(document).on("click", ".select", function () {
+        count--;
+        $('#choiceCounter').text(count);
+        console.log(count);
         if ($('.albumListItem').length == 10) {
             addButton.removeClass('disp-block');
             addButton.addClass('disp-none');
@@ -159,6 +164,8 @@ $(function () {
     }, '.albumListItem');
 
     $(document).on("click", ".albumRemove", function () {
+        count++;
+        $('#choiceCounter').text(count);
         $(this).parent().remove();
         if ($('.albumListItem').length < 10) {
             addButton.removeClass('disp-none');
@@ -168,6 +175,8 @@ $(function () {
     })
 
     $(document).on("click", ".selected", function () {
+        count++;
+        $('#choiceCounter').text(count);
         $(this).text('選択');
         $(this).addClass('select');
         $(this).addClass('bg-turquoise');
@@ -178,6 +187,7 @@ $(function () {
     })
 
     $(document).on("click", ".reset", function () {
+        $('#choiceCounter').text('10');
         $('.albumArtList').children().remove();
         addButton.removeClass('disp-none');
         addButton.addClass('disp-block');
