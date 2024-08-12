@@ -40,7 +40,6 @@ $(function () {
                 artistName: data_artistName,
             }
         }).done(function (result) {
-            console.log(result);
             modalList.remove();
             artistAutocomplete(result);
         }).fail(function () {
@@ -102,7 +101,7 @@ $(function () {
         let allList = $('.albumArtList').find('li');
         var listArray = [];
         allList.each(function () {
-            listArray.push($(this).attr('data-listitems_id'));
+            listArray.push($(this).attr('id'));
         })
 
         if (!$('.modal-content').hasClass('modalList')) {
@@ -122,9 +121,9 @@ $(function () {
                 artistsName.push(value.name);
             });
             if ($.inArray(albumId, listArray) != -1) {
-                $('.modalList').append('<li class="albumItems" data-album_id="' + albumId + '" data-name="' + albumName + '" data-artist="' + artistsName.toString() + '"><image class="albumImage" src="' + imageItems + '"><div class="l-albumInfo"><span class="albumName">' + albumName + '(' + release + ')' + '</span><span class="artistsName">' + artistsName.toString() + '</span></div><button class="l-button txt-white bg-orange select" disabled>選択中</button></li>');
+                $('.modalList').append('<li class="albumItems" id="' + albumId + '" data-name="' + albumName + '" data-artist="' + artistsName.toString() + '"><image class="albumImage" src="' + imageItems + '"><div class="l-albumInfo"><span class="albumName">' + albumName + '(' + release + ')' + '</span><span class="artistsName">' + artistsName.toString() + '</span></div><button class="l-button txt-white bg-orange select" disabled>選択中</button></li>');
             } else {
-                $('.modalList').append('<li class="albumItems" data-album_id="' + albumId + '" data-name="' + albumName + '" data-artist="' + artistsName.toString() + '"><image class="albumImage" src="' + imageItems + '"><div class="l-albumInfo"><span class="albumName">' + albumName + '(' + release + ')' + '</span><span class="artistsName">' + artistsName.toString() + '</span></div><button class="l-button txt-white bg-turquoise select">選択</button></li>');
+                $('.modalList').append('<li class="albumItems" id="' + albumId + '" data-name="' + albumName + '" data-artist="' + artistsName.toString() + '"><image class="albumImage" src="' + imageItems + '"><div class="l-albumInfo"><span class="albumName">' + albumName + '(' + release + ')' + '</span><span class="artistsName">' + artistsName.toString() + '</span></div><button class="l-button txt-white bg-turquoise select">選択</button></li>');
             }
             i++;
         }
@@ -136,17 +135,18 @@ $(function () {
             addButton.addClass('disp-none');
             $('.resetArea').append('<div class="ta-center resetWrapper"><button class="l-button txt-white bg-turquoise reset"><i class="fa-solid fa-rotate-right"></i></button></div>');
             $('.modal-container').removeClass('active');
-        }
-        if ($('.albumListItem').length <= 10) {
-            let id = $(this).parent().attr('data-album_id');
+        } else {
+            let id = $(this).parent().attr('id');
             let name = $(this).parent().attr('data-name');
             let artist = $(this).parent().attr('data-artist');
             let selectAlbum = $(this).closest('li').children('img').attr('src');
 
             $(this).text('選択中');
+            $(this).addClass('selected');
+            $(this).removeClass('select');
             $(this).removeClass('bg-turquoise');
             $(this).addClass('bg-orange');
-            $('.albumArtList').append('<li class="albumListItem" data-listitems_id="' + id + '"><image class="l-albumArt m-bottom-05em" src="' + selectAlbum + '"><span class="selectName">' + name + '</span><span>' + artist + '</span></li>');
+            $('.albumArtList').append('<li class="albumListItem" id="' + id + '"><image class="l-albumArt m-bottom-05em" src="' + selectAlbum + '"><span class="selectName">' + name + '</span><span>' + artist + '</span></li>');
         }
     });
     $(document).on({
@@ -160,11 +160,21 @@ $(function () {
 
     $(document).on("click", ".albumRemove", function () {
         $(this).parent().remove();
-        if ($('.albumListItem').length <= 10) {
+        if ($('.albumListItem').length < 10) {
             addButton.removeClass('disp-none');
             addButton.addClass('disp-block');
             reset.removeClass('disp-none');
         }
+    })
+
+    $(document).on("click", ".selected", function () {
+        $(this).text('選択');
+        $(this).addClass('select');
+        $(this).addClass('bg-turquoise');
+        $(this).removeClass('selected');
+        $(this).removeClass('bg-orange');
+        let id = $(this).parent().attr('id');
+        $('#' + id).remove();
     })
 
     $(document).on("click", ".reset", function () {
