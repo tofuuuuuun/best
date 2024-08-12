@@ -16,6 +16,7 @@ include("./common/header.php");
                     <i class="fa-solid fa-plus txt-green"></i>
                 </div>
             </div>
+            <div class="resetArea"></div>
         </div>
     </div>
 </main>
