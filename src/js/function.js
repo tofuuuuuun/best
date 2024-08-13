@@ -4,7 +4,6 @@ $(function () {
     var container = $('.modal-container');
     var artistName = $('#artistName');
     var modalList = $('.modalList');
-    var autocompleteList = $('.autocompleteList');
     var reset = $('.reset');
     var count = 10;
 
@@ -12,7 +11,7 @@ $(function () {
     addButton.on('click', function () {
         container.addClass('active');
         $('.modalList').remove();
-        autocompleteList.remove();
+        $('.autocompleteList').remove();
         artistName.val('');
         artistName.attr('data-artist_id', '');
         $('#choiceCounter').text(count);
@@ -22,35 +21,40 @@ $(function () {
         container.removeClass('active');
     });
 
+    let timer;
+    const time = 1000;
     // 検索候補
     artistName.on('input', function () {
         $('.autocompleteList').remove();
+        let data_artistName = artistName.val();
+        clearTimeout(timer);
+        timer = setTimeout(() => {
+            $.ajax({
+                url: "./js/ajax/searchArtists.php",
+                cache: false,
+                async: false,
+                type: "GET",
+                dataType: "json",
+                data: {
+                    artistName: data_artistName,
+                }
+            }).done(function (result) {
+                modalList.remove();
+                artistAutocomplete(result);
+            }).fail(function () {
+                $('.autocompleteList').append('<li class="artistItems">アーティストが見つかりませんでした</li>');
+            });
+        }, time);
+    });
+    function artistAutocomplete(result) {
+        let resultItemCount = Object.keys(result['items']).length;
+        let imageItems;
         if ($('.autocompleteList').val() == "") {
             $('.autocompleteList').remove();
             modalList.remove();
         } else {
             $('.l-autocomplete').append('<ul class="autocompleteList padding-all-1em"></ul>');
         }
-        let data_artistName = artistName.val();
-        $.ajax({
-            url: "./js/ajax/searchArtists.php",
-            cache: false,
-            async: false,
-            type: "GET",
-            dataType: "json",
-            data: {
-                artistName: data_artistName,
-            }
-        }).done(function (result) {
-            modalList.remove();
-            artistAutocomplete(result);
-        }).fail(function () {
-            $('.autocompleteList').append('<li class="artistItems">データの取得に失敗しました</li>');
-        });
-    });
-    function artistAutocomplete(result) {
-        let resultItemCount = Object.keys(result['items']).length;
-        let imageItems;
         for (let i = 0; i <= resultItemCount - 1;) {
             let searchArtistName = result['items'][i]['name'];
             let searchArtistId = result['items'][i]['id'];
@@ -134,26 +138,29 @@ $(function () {
     $(document).on("click", ".select", function () {
         count--;
         $('#choiceCounter').text(count);
-        console.log(count);
-        if ($('.albumListItem').length == 10) {
+        let id = $(this).parent().attr('id');
+        let name = $(this).parent().attr('data-name');
+        let artist = $(this).parent().attr('data-artist');
+        let selectAlbum = $(this).closest('li').children('img').attr('src');
+
+        $(this).text('選択中');
+        $(this).addClass('selected');
+        $(this).removeClass('select');
+        $(this).removeClass('bg-turquoise');
+        $(this).addClass('bg-orange');
+        $('.albumArtList').append('<li class="albumListItem" id="' + id + '"><image class="l-albumArt m-bottom-05em" src="' + selectAlbum + '"><span class="selectName">' + name + '</span><span>' + artist + '</span></li>');
+
+        if ($('.albumListItem').length === 10) {
             addButton.removeClass('disp-block');
             addButton.addClass('disp-none');
-            $('.resetArea').append('<div class="ta-center resetWrapper"><button class="l-button txt-white bg-turquoise reset"><i class="fa-solid fa-rotate-right"></i></button></div>');
-            $('.modal-container').removeClass('active');
-        } else {
-            let id = $(this).parent().attr('id');
-            let name = $(this).parent().attr('data-name');
-            let artist = $(this).parent().attr('data-artist');
-            let selectAlbum = $(this).closest('li').children('img').attr('src');
-
-            $(this).text('選択中');
-            $(this).addClass('selected');
-            $(this).removeClass('select');
-            $(this).removeClass('bg-turquoise');
-            $(this).addClass('bg-orange');
-            $('.albumArtList').append('<li class="albumListItem" id="' + id + '"><image class="l-albumArt m-bottom-05em" src="' + selectAlbum + '"><span class="selectName">' + name + '</span><span>' + artist + '</span></li>');
+            container.removeClass('active');
+            if (!$('.resetWrapper').length == 1) {
+                $('.resetArea').append('<div class="ta-center resetWrapper"><button class="l-button txt-white bg-turquoise reset"><i class="fa-solid fa-rotate-right"></i></button></div>');
+                $('.modal-container').removeClass('active');
+            }
         }
     });
+
     $(document).on({
         'mouseenter': function () {
             $(this).append('<span class="albumRemove"><i class="fa-solid fa-xmark"></i></span>');
@@ -187,10 +194,11 @@ $(function () {
     })
 
     $(document).on("click", ".reset", function () {
+        count = 10;
         $('#choiceCounter').text('10');
         $('.albumArtList').children().remove();
         addButton.removeClass('disp-none');
         addButton.addClass('disp-block');
-        $('.reset').remove();
+        $('.resetWrapper').remove();
     })
 });

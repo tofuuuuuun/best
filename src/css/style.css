@@ -44,6 +44,7 @@ input { padding: 0.5em; border-radius: 0; border: 1px solid #cacaca; }
 
 .ta-left { text-align: left; }
 .ta-center { text-align: center; }
+.ta-right { text-align: right; }
 
 /* 共通パーツ レイアウト */
 .l-contentWrapper{
@@ -120,6 +121,7 @@ input { padding: 0.5em; border-radius: 0; border: 1px solid #cacaca; }
 
 .txt-white { color: #F1F8E9; }
 .txt-green {color: #009688;}
+.txt-orange {color: #ff693a;}
 
 /* 共通パーツ 背景色 */
 .bg-orange { background-color: #ff693a; }
