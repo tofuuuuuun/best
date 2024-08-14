@@ -209,7 +209,11 @@ $(function () {
             letterRendering: 1,
             useCORS: true
         }).then(canvas => {
-            document.body.appendChild(canvas);
+            var dataURL = canvas.toDataURL();
+            var link = document.createElement("a");
+            link.href = dataURL;
+            link.download = "download.png";
+            link.click();
         });
     });
 
