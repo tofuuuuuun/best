@@ -155,7 +155,7 @@ $(function () {
             addButton.addClass('disp-none');
             container.removeClass('active');
             if (!$('.resetWrapper').length == 1) {
-                $('.resetArea').append('<div class="ta-center resetWrapper"><button class="l-button txt-white bg-turquoise reset"><i class="fa-solid fa-rotate-right"></i></button></div>');
+                $('.resetArea').append('<div class="ta-center resetWrapper"><button class="l-button m-right-1em txt-white bg-turquoise reset"><i class="fa-solid fa-rotate-right"></i></button><button class="l-button txt-white bg-turquoise capture"><i class="fa-solid fa-camera"></i></button></div>');
                 $('.modal-container').removeClass('active');
             }
         }
@@ -201,4 +201,16 @@ $(function () {
         addButton.addClass('disp-block');
         $('.resetWrapper').remove();
     })
+
+
+    $(document).on("click", ".capture", function () {
+        html2canvas(document.querySelector('.l-contentWrapper'), {
+            logging: true,
+            letterRendering: 1,
+            useCORS: true
+        }).then(canvas => {
+            document.body.appendChild(canvas);
+        });
+    });
+
 });

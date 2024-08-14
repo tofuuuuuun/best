@@ -50,6 +50,7 @@ input { padding: 0.5em; border-radius: 0; border: 1px solid #cacaca; }
 .l-contentWrapper{
     padding-left: 1em;
     padding-right: 1em;
+    background-color: #424242;
 }
 
 .l-header{
