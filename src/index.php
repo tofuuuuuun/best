@@ -1,10 +1,5 @@
 <?php
-// session_start();
-// if (isset($_SESSION["logion_session"]) && $_SESSION["logion_session"] == false) {
-//     header('Location:http://localhost:8080/');
-// }
 $title = "BEST";
-// include("./database/connect.php");
 include("./common/header.php");
 ?>
 <main>
