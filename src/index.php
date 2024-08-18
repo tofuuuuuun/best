@@ -10,20 +10,22 @@ include("./common/header.php");
 <main>
     <div class="contentWrapper">
         <div class="l-contentWrapper">
-            <div class="m-bottom-3em ta-center">
+            <div class="startText m-bottom-3em ta-center disp-block fadeIn">
                 <h2 class="txt-white">あなたの音楽、あなたのベストアルバム</h2>
-                <p class="txt-white">これまで聴いてきたアルバムの中から、あなたのベスト10枚を選んでみませんか？お気に入りのアルバムを選ぶだけで、あなたの音楽遍歴が一目でわかる一覧が完成します。</p>
+                <p class="txt-white m-bottom-1em">今まで聴いてきた音楽の中から、<br>あなたのベスト10枚を選んでみませんか？</p>
+                <p class="txt-white m-bottom-2em">お気に入りのアルバムを選ぶだけで、<br>あなたの音楽遍歴が一目でわかる一覧が完成します。</p>
 
                 <h3 class="txt-white">あなたの音楽の歴史を振り返る</h3>
-                <p class="txt-white">シンプルに、そして直感的に、あなたの好きなアルバムを選択。プレイリスト機能はありませんが、アルバムアートを一覧で表示して「このアルバム、懐かしい！」なんて話題も広がるはず。</p>
+                <p class="txt-white m-bottom-1em">シンプルに、そして直感的に、あなたの好きなアルバムを選択。</p>
+                <p class="txt-white m-bottom-2em">アルバムアートを一覧で表示して<br>「このアルバム、懐かしい！」なんて話題も広がるはず。</p>
 
                 <h3 class="txt-white">みんなにシェアしよう</h3>
-                <p class="txt-white">作ったリストは、みんなにシェアして「このアルバム超オススメ！」って自慢しよう。音楽の話題で盛り上がれること間違いなし！</p>
+                <p class="txt-white m-bottom-1em">作ったリストは、みんなにシェアして<br>「このアルバム超オススメ！」って自慢しよう。</p>
+                <p class="txt-white m-bottom-2em">音楽の話題で盛り上がれること間違いなし！</p>
 
-                <h3 class="txt-white">さあ、始めよう</h3>
-                <p class="txt-white">今すぐ始めて、あなたの音楽の旅を振り返りながら、特別な10枚を選び出しましょう。音楽で話のネタを作るなら、今がチャンス！</p>
+                <button class="startButton bg-turquoise txt-white font-wb">さあ、始めよう！</button>
             </div>
-            <div class="l-albumList l-common">
+            <div class="l-albumList l-common disp-none">
                 <ul class="albumArtList" id="target"></ul>
                 <div class="albumAddButton">
                     <div class="l-albumArt albumAddButton addButton action disp-block">

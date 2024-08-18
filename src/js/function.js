@@ -1,4 +1,15 @@
 $(function () {
+
+    $(document).on("click", ".startButton", function () {
+        $('.startText').toggleClass('fadeIn fadeOut');
+        setTimeout(() => {
+            $('.startText').toggleClass('disp-block disp-none');
+            $('.l-albumList').toggleClass('disp-none disp-block');
+        }, 1000);
+
+    });
+
+
     var addButton = $('.addButton');
     var close = $('.modal-close');
     var container = $('.modal-container');
@@ -6,6 +17,7 @@ $(function () {
     var modalList = $('.modalList');
     var reset = $('.reset');
     var count = 10;
+
 
     // モーダルオープン
     addButton.on('click', function () {
