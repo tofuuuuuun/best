@@ -13,7 +13,7 @@
                     <input type="text" name="artist" id="artistName" placeholder="アーティスト名" data-artist_id="">
                 </div>
                 <div class="l-autocomplete"></div>
-                <button class="l-buttonSearch txt-white bg-turquoise search">
+                <button class="l-buttonSearch txt-white bg-turquoise search action">
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </button>
             </div>

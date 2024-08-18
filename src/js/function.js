@@ -32,7 +32,7 @@ $(function () {
             $.ajax({
                 url: "./js/ajax/searchArtists.php",
                 cache: false,
-                async: false,
+                // async: false,
                 type: "GET",
                 dataType: "json",
                 data: {
@@ -58,12 +58,14 @@ $(function () {
         for (let i = 0; i <= resultItemCount - 1;) {
             let searchArtistName = result['items'][i]['name'];
             let searchArtistId = result['items'][i]['id'];
+            let list;
             if (!result['items'][i]['images'].length) {
-                $('.autocompleteList').append('<li class="artistItems" data-artist_id="' + searchArtistId + '"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" class="l-searchArtistImage artistImage"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L353.3 251.6C407.9 237 448 187.2 448 128C448 57.3 390.7 0 320 0C250.2 0 193.5 55.8 192 125.2L38.8 5.1zM264.3 304.3C170.5 309.4 96 387.2 96 482.3c0 16.4 13.3 29.7 29.7 29.7l388.6 0c3.9 0 7.6-.7 11-2.1l-261-205.6z"/></svg><div class="l-artistInfo"><span class="searchArtistName font-wb">' + searchArtistName + '</span></div></li>');
+                list = '<li class="artistItems action" data-artist_id="' + searchArtistId + '"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" class="l-searchArtistImage artistImage"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L353.3 251.6C407.9 237 448 187.2 448 128C448 57.3 390.7 0 320 0C250.2 0 193.5 55.8 192 125.2L38.8 5.1zM264.3 304.3C170.5 309.4 96 387.2 96 482.3c0 16.4 13.3 29.7 29.7 29.7l388.6 0c3.9 0 7.6-.7 11-2.1l-261-205.6z"/></svg><div class="l-artistInfo"><span class="searchArtistName font-wb">' + searchArtistName + '</span></div></li>';
             } else {
                 imageItems = result['items'][i]['images'][1]['url'];
-                $('.autocompleteList').append('<li class="artistItems" data-artist_id="' + searchArtistId + '"><image class="l-searchArtistImage artistImage" src="' + imageItems + '"><div class="l-artistInfo"><span class="searchArtistName font-wb">' + searchArtistName + '</span></div></li>');
+                list = '<li class="artistItems action" data-artist_id="' + searchArtistId + '"><image class="l-searchArtistImage artistImage" src="' + imageItems + '"><div class="l-artistInfo"><span class="searchArtistName font-wb">' + searchArtistName + '</span></div></li>';
             }
+            $('.autocompleteList').append(list);
             i++;
         }
     }
@@ -85,7 +87,7 @@ $(function () {
         $.ajax({
             url: "./js/ajax/searchSpotify.php",
             cache: false,
-            async: false,
+            // async: false,
             type: "GET",
             dataType: "json",
             data: {
@@ -126,11 +128,14 @@ $(function () {
             tempArtistsName.forEach(value => {
                 artistsName.push(value.name);
             });
+
+            let items;
             if ($.inArray(albumId, listArray) != -1) {
-                $('.modalList').append('<li class="albumItems" id="' + albumId + '" data-name="' + albumName + '" data-artist="' + artistsName.toString() + '"><image class="albumImage" src="' + imageItems + '"><div class="l-albumInfo"><span class="albumName">' + albumName + '(' + release + ')' + '</span><span class="artistsName">' + artistsName.toString() + '</span></div><button class="l-button txt-white bg-orange select" disabled>選択中</button></li>');
+                items = '<li class="albumItems" id="' + albumId + '" data-name="' + albumName + '" data-artist="' + artistsName.toString() + '"><image class="albumImage" src="' + imageItems + '"><div class="l-albumInfo"><span class="albumName">' + albumName + '(' + release + ')' + '</span><span class="artistsName">' + artistsName.toString() + '</span></div><button class="l-button txt-white bg-orange select action" disabled>選択中</button></li>';
             } else {
-                $('.modalList').append('<li class="albumItems" id="' + albumId + '" data-name="' + albumName + '" data-artist="' + artistsName.toString() + '"><image class="albumImage" src="' + imageItems + '"><div class="l-albumInfo"><span class="albumName">' + albumName + '(' + release + ')' + '</span><span class="artistsName">' + artistsName.toString() + '</span></div><button class="l-button txt-white bg-turquoise select">選択</button></li>');
+                items = '<li class="albumItems" id="' + albumId + '" data-name="' + albumName + '" data-artist="' + artistsName.toString() + '"><image class="albumImage" src="' + imageItems + '"><div class="l-albumInfo"><span class="albumName">' + albumName + '(' + release + ')' + '</span><span class="artistsName">' + artistsName.toString() + '</span></div><button class="l-button txt-white bg-turquoise select action">選択</button></li>';
             }
+            $('.modalList').append(items);
             i++;
         }
     }
@@ -144,18 +149,16 @@ $(function () {
         let selectAlbum = $(this).closest('li').children('img').attr('src');
 
         $(this).text('選択中');
-        $(this).addClass('selected');
-        $(this).removeClass('select');
-        $(this).removeClass('bg-turquoise');
-        $(this).addClass('bg-orange');
-        $('.albumArtList').append('<li class="albumListItem" id="' + id + '"><image class="l-albumArt m-bottom-05em" src="' + selectAlbum + '"><span class="selectName">' + name + '</span><span>' + artist + '</span></li>');
+        $(this).toggleClass('select selected');
+        $(this).toggleClass('bg-turquoise bg-orange');
+
+        $('.albumArtList').append('<li class="albumListItem action" id="' + id + '"><image class="l-albumArt m-bottom-05em" src="' + selectAlbum + '"><span class="selectName">' + name + '</span><span>' + artist + '</span></li>');
 
         if ($('.albumListItem').length === 10) {
-            addButton.removeClass('disp-block');
-            addButton.addClass('disp-none');
+            addButton.toggleClass('disp-block disp-none');
             container.removeClass('active');
             if (!$('.resetWrapper').length == 1) {
-                $('.resetArea').append('<div class="ta-center resetWrapper"><button class="l-button m-right-1em txt-white bg-turquoise reset"><i class="fa-solid fa-rotate-right"></i></button><button class="l-button txt-white bg-turquoise capture"><i class="fa-solid fa-camera"></i></button></div>');
+                $('.resetArea').append('<div class="ta-center resetWrapper"><button class="l-button action m-right-1em txt-white bg-turquoise reset action"><i class="fa-solid fa-rotate-right"></i></button><button class="l-button txt-white bg-turquoise capture action"><i class="fa-solid fa-camera"></i></button></div>');
                 $('.modal-container').removeClass('active');
             }
         }
@@ -175,8 +178,7 @@ $(function () {
         $('#choiceCounter').text(count);
         $(this).parent().remove();
         if ($('.albumListItem').length < 10) {
-            addButton.removeClass('disp-none');
-            addButton.addClass('disp-block');
+            addButton.toggleClass('disp-block disp-none');
             reset.removeClass('disp-none');
         }
     })
@@ -185,10 +187,8 @@ $(function () {
         count++;
         $('#choiceCounter').text(count);
         $(this).text('選択');
-        $(this).addClass('select');
-        $(this).addClass('bg-turquoise');
-        $(this).removeClass('selected');
-        $(this).removeClass('bg-orange');
+        $(this).toggleClass('select selected');
+        $(this).toggleClass('bg-turquoise bg-orange');
         let id = $(this).parent().attr('id');
         $('#' + id).remove();
     })
@@ -197,11 +197,9 @@ $(function () {
         count = 10;
         $('#choiceCounter').text('10');
         $('.albumArtList').children().remove();
-        addButton.removeClass('disp-none');
-        addButton.addClass('disp-block');
+        addButton.toggleClass('disp-none disp-block');
         $('.resetWrapper').remove();
     })
-
 
     $(document).on("click", ".capture", function () {
         html2canvas(document.querySelector('.l-contentWrapper'), {
@@ -209,12 +207,39 @@ $(function () {
             letterRendering: 1,
             useCORS: true
         }).then(canvas => {
-            var dataURL = canvas.toDataURL();
-            var link = document.createElement("a");
-            link.href = dataURL;
-            link.download = "download.png";
-            link.click();
+            var dataURL = canvas.toDataURL(image.png);
+            // var link = document.createElement("a");
+            // link.href = dataURL;
+            // link.download = "download.png";
+            // link.click();
+            const blob = toBlob(dataURL);
+            const imageFile = new File([blob], "image.png", {
+                type: "image/png",
+            });
+            navigator.share({
+                text: "共有テスト",
+                url: "test",
+                files: [imageFile],
+            }).then(() => {
+                console.log("共有成功.");
+            }).catch((error) => {
+                console.log(error);
+            });
         });
     });
-
+    const toBlob = (base64) => {
+        const decodedData = atob(base64.replace(/^.*,/, ""));
+        const buffers = new Uint8Array(decodedData.length);
+        for (let i = 0; i < decodedData.length; i++) {
+            buffers[i] = decodedData.charCodeAt(i);
+        }
+        try {
+            const blob = new Blob([buffers.buffer], {
+                type: "image/png",
+            });
+            return blob;
+        } catch (e) {
+            return null;
+        }
+    };
 });
