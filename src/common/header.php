@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex">
     <script src="https://kit.fontawesome.com/3a6ca16033.js" crossorigin="anonymous"></script>
     <link rel=”icon” href="../images/favicon.ico">
     <link rel="preconnect" href="https://fonts.googleapis.com">
