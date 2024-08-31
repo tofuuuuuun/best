@@ -57,7 +57,6 @@ input { padding: 0.5em; border-radius: 0; border: 1px solid #cacaca; }
 }
 .l-contentWrapper{
     padding: 1em 1em 0 1em;
-    /* background-color: #424242; */
 }
 
 .l-header{
@@ -517,7 +516,7 @@ main {
 .albumName{ font-size: 1em; }
 
 .selectName{
-    font-size: 1.4em; font-weight: bold;
+    font-size: 1.1em; font-weight: bold;
 }
 
 }
