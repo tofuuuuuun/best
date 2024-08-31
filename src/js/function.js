@@ -99,7 +99,6 @@ $(function () {
         $.ajax({
             url: "./js/ajax/searchSpotify.php",
             cache: false,
-            // async: false,
             type: "GET",
             dataType: "json",
             data: {
@@ -110,6 +109,7 @@ $(function () {
         }).done(function (result) {
             $('modalList').remove();
             $('searchForm').addClass('m-bottom-2em');
+            console.log(result)
             albumArt(result);
         }).fail(function () {
             $('.modalList').append('<li class="albumItems">データの取得に失敗しました</li>');
@@ -219,11 +219,7 @@ $(function () {
             letterRendering: 1,
             useCORS: true
         }).then(canvas => {
-            var dataURL = canvas.toDataURL(image.png);
-            // var link = document.createElement("a");
-            // link.href = dataURL;
-            // link.download = "download.png";
-            // link.click();
+            var dataURL = canvas.toDataURL("image/png");
             const blob = toBlob(dataURL);
             const imageFile = new File([blob], "image.png", {
                 type: "image/png",
