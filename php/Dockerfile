@@ -1,7 +1,21 @@
 FROM php:fpm
+
+# PHP設定ファイルをコピー
 COPY php.ini /usr/local/etc/php/
-RUN docker-php-ext-install pdo_mysql
-RUN apt-get update \ 
-    && apt-get install -y libzip-dev
+
+# libzip-devをインストール
+RUN apt-get update && apt-get install -y libzip-dev
+
+# Composerをコピー
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+
+# zip拡張をインストール
 RUN docker-php-ext-install zip
+
+# faviconをコピー
+COPY ./favicon.ico /usr/share/nginx/html/
+
+# SSL証明書と秘密鍵をコピー
+COPY ./ssl/certs/letsencrypt33117937.crt /etc/ssl/certs/
+COPY ./ssl/certs/letsencrypt33117937Int.crt /etc/ssl/certs/
+COPY ./ssl/private/letsencrypt33117937.key /etc/ssl/private/
