@@ -225,11 +225,11 @@ $(function () {
                 type: "image/png",
             });
             navigator.share({
-                text: "共有テスト",
-                url: "test",
+                text: "共有",
+                url: "share",
                 files: [imageFile],
             }).then(() => {
-                console.log("共有成功.");
+                console.log("success.");
             }).catch((error) => {
                 console.log(error);
             });
