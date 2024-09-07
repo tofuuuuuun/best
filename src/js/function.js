@@ -34,7 +34,6 @@ $(function () {
     });
 
     let timer;
-    // const time = 1000;
     const time = 500;
     // 検索候補
     artistName.on('input', function () {
@@ -45,7 +44,6 @@ $(function () {
             $.ajax({
                 url: "./js/ajax/searchArtists.php",
                 cache: false,
-                // async: false,
                 type: "GET",
                 dataType: "json",
                 data: {
@@ -110,7 +108,6 @@ $(function () {
         }).done(function (result) {
             $('modalList').remove();
             $('searchForm').addClass('m-bottom-2em');
-            console.log(result)
             albumArt(result);
         }).fail(function () {
             $('.modalList').append('<li class="albumItems">データの取得に失敗しました</li>');
@@ -226,6 +223,7 @@ $(function () {
         $('.albumArtList').children().remove();
         addButton.toggleClass('disp-none disp-block');
         $('.resetWrapper').remove();
+        addButton.toggleClass('disp-block disp-none');
     })
 
     $(document).on("click", ".capture", function () {

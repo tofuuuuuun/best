@@ -10,7 +10,7 @@ $artistId = isset($_GET['artistId']) ? $_GET['artistId'] : "";
 
 $result = "";
 if (empty($artistId)) {
-    $result = $api->search($artistName, 'artist');
+    $result = $api->search(htmlentities($artistName), 'artist');
     $artistId = $result->{'artists'}->{'items'}[0]->{'id'};
 }
 
