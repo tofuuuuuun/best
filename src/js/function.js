@@ -221,9 +221,10 @@ $(function () {
         count = 10;
         $('#choiceCounter').text('10');
         $('.albumArtList').children().remove();
-        addButton.toggleClass('disp-none disp-block');
+        if (addButton.hasClass('disp-none')) {
+            addButton.toggleClass('disp-none disp-block');
+        }
         $('.resetWrapper').remove();
-        addButton.toggleClass('disp-block disp-none');
     })
 
     $(document).on("click", ".capture", function () {
