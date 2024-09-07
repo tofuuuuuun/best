@@ -20,10 +20,6 @@ if ($type != "all") {
     $result = $api->getArtistAlbums($artistId, ['limit' => 50, 'country' => 'JP']);
 }
 
-// $type  = 'all';
-// $result = $api->getArtistAlbums("0MK8l3nURwwQIjafvXoJJt", ['limit' => 50, 'country' => 'JP']);
-// $result->items[] = $result->items;
-
 if ($result->next) {
     $tmpResult;
     $resultFlg = true;
@@ -32,10 +28,8 @@ if ($result->next) {
         $offset = 50;
         if ($type != "all") {
             $tmpResult = $api->getArtistAlbums($artistId, ['include_groups' => $type, 'offset' => $offset * $i, 'limit' => 50, 'country' => 'JP']);
-            // $tmpResult = $api->getArtistAlbums("0MK8l3nURwwQIjafvXoJJt", ['include_groups' => $type, 'offset' => $offset * $i, 'limit' => 50, 'country' => 'JP']);
         } else {
             $tmpResult = $api->getArtistAlbums($artistId, ['offset' => $offset * $i, 'limit' => 50, 'country' => 'JP']);
-            // $tmpResult = $api->getArtistAlbums("0MK8l3nURwwQIjafvXoJJt", ['offset' => $offset * $i, 'limit' => 50, 'country' => 'JP']);
         }
 
         foreach ($tmpResult->items as $key => $value) {

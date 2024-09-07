@@ -197,13 +197,17 @@ $(function () {
     }, '.albumListItem');
 
     $(document).on("click", ".albumRemove", function () {
+        $(this).parent().remove();
+        if ($('.albumListItem').length == 9) {
+            addButton.toggleClass('disp-block disp-none');
+        } else if ($('.albumListItem').length < 10) {
+            if ($('.albumListItem').hasClass('disp-block')) {
+                addButton.toggleClass('disp-block disp-none');
+            }
+        }
         count++;
         $('#choiceCounter').text(count);
-        $(this).parent().remove();
-        if ($('.albumListItem').length < 10) {
-            addButton.toggleClass('disp-block disp-none');
-            reset.removeClass('disp-none');
-        }
+        reset.removeClass('disp-none');
     })
 
     $(document).on("click", ".selected", function () {
@@ -237,7 +241,6 @@ $(function () {
             });
             navigator.share({
                 text: "共有",
-                url: "share",
                 files: [imageFile],
             }).then(() => {
                 console.log("success.");
