@@ -6,8 +6,8 @@
         <div class="modal-content">
             <div class="l-searchForm ta-left m-bottom-1em">
                 <div class="l-selectType">
-
                     <input type="text" name="artist" id="artistName" placeholder="アーティスト名" data-artist_id="">
+                    <div class="clear"><i class="fa-solid fa-xmark"></i></div>
                 </div>
                 <div class="l-autocomplete"></div>
                 <button class="l-buttonSearch txt-white bg-turquoise search action">

@@ -17,6 +17,7 @@ input { padding: 0.5em; border-radius: 0; border: 1px solid #cacaca; }
 .disp-inline { display: inline; }
 .disp-none{display: none!important;}
 
+
 .m-top-5px { margin-top: 5px; }
 .m-top-1em { margin-top: 1em; }
 .m-top-2em { margin-top: 2em; }
@@ -112,6 +113,7 @@ input { padding: 0.5em; border-radius: 0; border: 1px solid #cacaca; }
 }
 
 .l-selectType{
+    position: relative;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -267,6 +269,13 @@ input { padding: 0.5em; border-radius: 0; border: 1px solid #cacaca; }
     border: 1px solid #cacaca;
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
+}
+
+.clear{
+    position: absolute;
+    right: 11px;
+    color: #424242;
+    cursor: pointer;
 }
 
 input[type=radio]{display: none;}

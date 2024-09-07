@@ -121,6 +121,12 @@ $(function () {
         $('.search').trigger('click');
     });
 
+    $('.clear').on('click', function () {
+        artistName.val('');
+        artistName.attr('data-artist_id', '');
+        console.log('clear');
+    })
+
     function albumArt(result) {
         let resultItemCount = Object.keys(result['items']).length;
         let allList = $('.albumArtList').find('li');
