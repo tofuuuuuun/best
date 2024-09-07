@@ -14,14 +14,14 @@ if (empty($artistId)) {
     $artistId = $result->{'artists'}->{'items'}[0]->{'id'};
 }
 
-if ($type) {
+if ($type != "all") {
     $result = $api->getArtistAlbums($artistId, ['include_groups' => $type, 'limit' => 50, 'country' => 'JP']);
 } else {
     $result = $api->getArtistAlbums($artistId, ['limit' => 50, 'country' => 'JP']);
 }
 
-// $type  = 'album';
-// $result = $api->getArtistAlbums("704gz1q9ieRxZfTkhPlZGG", ['include_groups' => $type, 'limit' => 50, 'country' => 'JP']);
+// $type  = 'all';
+// $result = $api->getArtistAlbums("0MK8l3nURwwQIjafvXoJJt", ['limit' => 50, 'country' => 'JP']);
 // $result->items[] = $result->items;
 
 if ($result->next) {
@@ -30,16 +30,17 @@ if ($result->next) {
     for ($i = 1; $resultFlg == true;) {
         // offset=50*n、limit=50で再度APIを叩く
         $offset = 50;
-        if ($type) {
+        if ($type != "all") {
             $tmpResult = $api->getArtistAlbums($artistId, ['include_groups' => $type, 'offset' => $offset * $i, 'limit' => 50, 'country' => 'JP']);
+            // $tmpResult = $api->getArtistAlbums("0MK8l3nURwwQIjafvXoJJt", ['include_groups' => $type, 'offset' => $offset * $i, 'limit' => 50, 'country' => 'JP']);
         } else {
-            $tmpResult = $api->getArtistAlbums($artistId, ['limit' => 50, 'country' => 'JP']);
+            $tmpResult = $api->getArtistAlbums($artistId, ['offset' => $offset * $i, 'limit' => 50, 'country' => 'JP']);
+            // $tmpResult = $api->getArtistAlbums("0MK8l3nURwwQIjafvXoJJt", ['offset' => $offset * $i, 'limit' => 50, 'country' => 'JP']);
         }
-        // 変えてきた中身から必要な部分を削り出してresultに連結
+
         foreach ($tmpResult->items as $key => $value) {
             $result->items[] = $tmpResult->items[$key];
         }
-
         if (!$tmpResult->next) {
             $resultFlg = false;
         }

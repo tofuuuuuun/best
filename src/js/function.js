@@ -34,7 +34,8 @@ $(function () {
     });
 
     let timer;
-    const time = 1000;
+    // const time = 1000;
+    const time = 500;
     // 検索候補
     artistName.on('input', function () {
         $('.autocompleteList').remove();
@@ -94,7 +95,7 @@ $(function () {
         $('.modalList').remove();
         $('.modalList').children().remove();
         let search_artistName = artistName.val();
-        let type = $('[name=typeLabel]').val();
+        let type = $('[name=typeLabel]:checked').val();
         let artistId = artistName.attr('data-artist_id');
         $.ajax({
             url: "./js/ajax/searchSpotify.php",
@@ -114,6 +115,10 @@ $(function () {
         }).fail(function () {
             $('.modalList').append('<li class="albumItems">データの取得に失敗しました</li>');
         });
+    });
+
+    $('[name=typeLabel]').on('click', function () {
+        $('.search').trigger('click');
     });
 
     function albumArt(result) {

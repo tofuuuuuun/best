@@ -80,6 +80,14 @@ input { padding: 0.5em; border-radius: 0; border: 1px solid #cacaca; }
     cursor: pointer;
 }
 
+.l-subButton{
+    width: 3em;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
 .action:active{ 
     transform: scale(0.95);
 }
@@ -140,6 +148,9 @@ input { padding: 0.5em; border-radius: 0; border: 1px solid #cacaca; }
 
 .bg-white { background-color: #F1F8E9; }
 .bg-white:hover{ background-color: #d6dccf; }
+
+.bg-gray { background-color: #ced3c8; }
+.bg-gray:hover{ background-color: #d6dccf; }
 /* 共通パーツここまで */
 
 
@@ -247,9 +258,7 @@ input { padding: 0.5em; border-radius: 0; border: 1px solid #cacaca; }
     box-sizing: border-box;
     width: 100%;
     height: 40px;
-    border-left: none;
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
+    border-radius: 10px;
 }
 .selectWrapper{
     background-color: #e6e6e6 ;
@@ -259,6 +268,8 @@ input { padding: 0.5em; border-radius: 0; border: 1px solid #cacaca; }
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
 }
+
+input[type=radio]{display: none;}
 
 .albumItems {
     display: flex;
@@ -350,10 +361,10 @@ input[type="radio"]:checked + label{
 .autocompleteList{
     height: 200px;
     background: #fff;
-    border-top-left-radius: 10px;
+    border-top-left-radius: 0;
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
-    border-bottom-left-radius: 10px;
+    border-bottom-left-radius: 0;
     overflow: auto;
 }
 
@@ -433,7 +444,7 @@ main {
 
 .l-autocomplete{
     left: 3%;
-    top: 80%;
+    top: 100%;
     width: 75%;
 }
 
