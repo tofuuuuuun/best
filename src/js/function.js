@@ -107,7 +107,6 @@ $(function () {
                 artistId: artistId
             }
         }).done(function (result) {
-            console.log(result);
             $('modalList').remove();
             $('searchForm').addClass('m-bottom-2em');
             albumArt(result);
@@ -206,10 +205,12 @@ $(function () {
     }, '.albumListItem');
 
     $(document).on("click", ".albumRemove", function () {
+
         $(this).parent().remove();
         const albumCount = $('.albumListItem').length;
-        if ($('.albumListItem').length < 10) {
-            addButton.toggleClass('disp-block disp-none', albumCount === 9);
+        if (albumCount === 9) {
+            addButton.removeClass('disp-none');
+            addButton.addClass('disp-block');
         }
         count++;
         $('#choiceCounter').text(count);
