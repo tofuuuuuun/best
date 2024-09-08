@@ -118,6 +118,7 @@ $(function () {
     $('.clear').on('click', function () {
         artistName.val('');
         artistName.attr('data-artist_id', '');
+        $('.autocompleteList').remove();
     })
 
     function albumArt(result) {
@@ -158,13 +159,12 @@ $(function () {
     $(document).on("click", ".select", function () {
         count--;
         $('#choiceCounter').text(count);
-
-        let $parent = $(this).parent();
+        let $this = $(this);
+        let $parent = $this.parent();
         let id = $parent.attr('id');
         let name = $parent.attr('data-name');
         let artist = $parent.attr('data-artist');
         let selectAlbum = $parent.find('img').attr('src');
-        let $this = $(this);
 
         $this.text('選択中');
         $this.toggleClass('select selected');
