@@ -121,16 +121,19 @@ $(function () {
         $('.autocompleteList').remove();
     })
 
-    function albumArt(result) {
+    async function albumArt(result) {
         let allList = $('.albumArtList').find('li');
         var listArray = [];
         allList.each(function () { listArray.push($(this).attr('id')); })
 
-        if (!$('.modal-content').hasClass('modalList')) {
+        if ($('.modalList').length === 0) {
             $('.modal-content').append('<ul class="modalList"></ul >');
+        } else {
+            $('.modalList').empty();
         }
+
         let items = '';
-        result['items'].map(item => {
+        (result['items'].map(item => {
             let imageItems = item.images[1].url;
             let albumName = item.name;
             let release = item.release_date.substring(0, 4);
@@ -152,7 +155,12 @@ $(function () {
                         </div>
                         <button class="l-button txt-white ${buttonClass} ${selectClass} action">${buttonText}</button>
                     </li>`;
-        });
+        }));
+        await append(items);
+    }
+
+    function append(items) {
+        $('.modalList').empty();
         $('.modalList').append(items);
     }
 
