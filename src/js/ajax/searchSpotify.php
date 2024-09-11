@@ -6,6 +6,16 @@ header('Content-type: application/json; charset=utf-8;');
 $artistName = $_GET['artistName'] ?? "";
 $type = $_GET['type'] ?? "";
 $artistId = $_GET['artistId'] ?? "";
+$cacheKey = "";
+$cachedResult = "";
+
+$cacheKey = "artist_albums_" . ($artistId ?: md5($artistName)) . "_" . ($type ?: 'all');
+
+$cachedResult = apcu_fetch($cacheKey);
+if ($cachedResult) {
+    echo json_encode($cachedResult);
+    exit;
+}
 
 $result = "";
 if (empty($artistId)) {
@@ -44,6 +54,8 @@ if ($result->next) {
         $i++;
     }
 }
+
+apcu_store($cacheKey, $result, 300);
 
 echo json_encode($result);
 exit;

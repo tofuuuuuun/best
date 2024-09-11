@@ -12,6 +12,9 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 # zip拡張をインストール
 RUN docker-php-ext-install zip
 
+#apucsインストール　有効化
+RUN pecl install apcu && docker-php-ext-enable apcu
+
 # faviconをコピー
 COPY ./favicon.ico /usr/share/nginx/html/
 

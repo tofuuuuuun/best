@@ -16,12 +16,12 @@
             </div>
             <div class="ta-left m-bottom-1em">
                 <!-- <p>あと<span id="choiceCounter" class="counterText txt-orange">10</span><span class="counterText  txt-orange">枚</span>！</p> -->
-                <input type="radio" name=typeLabel id="typeAll" value="all" checked>
-                <label for="typeAll" class="l-subButton bg-gray">すべて</label>
-                <input type="radio" name=typeLabel id="typeAlbum" value="album">
+                <input type="radio" name=typeLabel id="typeAlbum" value="album" checked>
                 <label for="typeAlbum" class="l-subButton bg-gray">アルバム</label>
                 <input type="radio" name=typeLabel id="typeSingleEP" value="single">
                 <label for="typeSingleEP" class="l-subButton bg-gray">シングルとEP</label>
+                <input type="radio" name=typeLabel id="typeAll" value="all">
+                <label for="typeAll" class="l-subButton bg-gray">すべて</label>
             </div>
         </div>
     </div>
