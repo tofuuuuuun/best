@@ -9,8 +9,10 @@ $artistId = $_GET['artistId'] ?? "";
 $cacheKey = "";
 $cachedResult = "";
 
+
 $cacheKey = "artist_albums_" . ($artistId ?: md5($artistName)) . "_" . ($type ?: 'all');
 
+// キャッシュに一致するデータが有れば返す
 $cachedResult = apcu_fetch($cacheKey);
 if ($cachedResult) {
     echo json_encode($cachedResult);
