@@ -63,9 +63,10 @@ const searchArtist = () => {
             artistAutocomplete(jsonResult);
         })
         .catch(error => {
-            console.error('Error:' + error);
-            let errorMessage = `<li class="artistItems">アーティストが見つかりませんでした</li>`;
-            document.querySelector('.autocompleteList').innerHTML = errorMessage;
+            console.log(error);
+            let errorItem = document.createElement('li');
+            errorItem.innerHTML = 'アーティスト情報の取得に失敗しました。'
+            document.querySelector('.modal-content').innerHTML = errorItem
         });
 }
 const artistAutocomplete = (result) => {
@@ -73,7 +74,7 @@ const artistAutocomplete = (result) => {
     const modalList = document.querySelector('.modalList');
     const autocompleteContainer = document.querySelector('.l-autocomplete');
 
-    if (document.querySelector('.autocompleteList') && document.querySelector('.autocompleteList').value === "") {
+    if (autocompleteList && autocompleteList.value === "") {
         if (autocompleteList) autocompleteList.remove();
         if (modalList) modalList.remove();
         return;
@@ -115,10 +116,9 @@ artistName.addEventListener('input', searchArtist);
 
 // クリックされたアーティストのアルバムを表示する
 const handleSearchAlbum = (e) => {
-    // アーティストＩＤが押されたときのイベントを取らないといけない
+    // TODO: アーティストＩＤが押されたときのイベントを取らないといけない
     artistName.value = e.target.innerText
     artistName.setAttribute('data-artist_id', e.target.dataset.artist_id);
-    // if (autocompleteList) autocompleteList.remove();
     searchAlbum();
 }
 
@@ -151,9 +151,10 @@ const searchAlbum = () => {
             albumArt(jsonResult);
         })
         .catch(error => {
-            console.error('Error' + error);
-            let errorMessage = `<li class="artistItems">アーティストが見つかりませんでした</li>`;
-            document.querySelector('.modalList').innerHTML += errorMessage;
+            console.log(error);
+            let errorItem = document.createElement('li');
+            errorItem.innerHTML = 'アーティスト情報の取得に失敗しました。'
+            document.querySelector('.modal-content').innerHTML = errorItem
         });
 }
 
@@ -196,9 +197,7 @@ const albumArt = async (result) => {
     await append(items)
 }
 
-function append(items) {
-    let modalList = document.querySelector('.modalList');
-    // if (modalList) modalList.parentNode.removeChild(modalList.firstChild);
+const append = (items) => {
     document.querySelector('.modalList').innerHTML += items;
 }
 search.addEventListener('click', searchAlbum);
@@ -259,7 +258,6 @@ const handleAlbumRemove = (e) => {
         addButton.classList.remove('disp-none');
         addButton.classList.add('disp-block');
     }
-    // reset.classList.remove('disp-none');
 }
 
 const handleSelected = (e) => {
@@ -290,7 +288,6 @@ const handleReset = () => {
         classList = [];
         classList = ['disp-block', 'disp-none'];
         toggleClass('.addButton', classList, 1);
-
     }
     const resetWrapper = document.querySelector('.resetWrapper');
     if (resetWrapper) {
