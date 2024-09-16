@@ -24,18 +24,18 @@ include("./common/header.php");
                 <ul class="albumArtList" id="target"></ul>
                 <div class="albumAddButton">
                     <div class="l-albumArt albumAddButton addButton action disp-block">
-                        <i class="fa-solid fa-plus txt-green"></i>
+                        <span class="icon-add"></span>
                     </div>
                 </div>
             </div>
         </div>
         <div class="resetArea m-top-1em"></div>
     </div>
+    <?php include("./parts/modal.php"); ?>
 </main>
-<?php include("./parts/modal.php"); ?>
-<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script type='text/javascript' src="./js/function.min.js" defer></script>
+<!-- <script type='text/javascript' src="./js/function.js" defer></script> -->
+<script type='text/javascript' src="./js/function_v2.js"></script>
 </body>
 
 </html>

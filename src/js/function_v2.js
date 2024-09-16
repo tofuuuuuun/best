@@ -9,15 +9,13 @@ const modalList = document.querySelector('.modalList');
 const search = document.querySelector('.search');
 
 const onStart = () => {
-    const startText = document.querySelector('.startText');
-    const l_albumList = document.querySelector('.l-albumList');
+    let classList = [];
+    classList = ['fadeIn', 'fadeOut', 'disp-none', 'disp-block'];
+    toggleClass('.startText', classList, 1);
 
-    startText.classList.toggle('fadeIn');
-    startText.classList.toggle('fadeOut');
-    startText.classList.toggle('disp-none');
-    startText.classList.toggle('disp-block');
-    l_albumList.classList.toggle('disp-none');
-    l_albumList.classList.toggle('disp-block');
+    classList = [];
+    classList = ['disp-none', 'disp-block'];
+    toggleClass('.l-albumList', classList, 1);
 }
 startButton.addEventListener('click', onStart);
 
@@ -39,6 +37,8 @@ const onClear = () => {
     artistName.setAttribute('data-artist_id', '');
     let autocompleteList = document.querySelector('.autocompleteList');
     if (autocompleteList) autocompleteList.remove();
+    let modalList = document.querySelector('.modalList');
+    if (modalList) modalList.remove();
 }
 document.querySelector('.clear').addEventListener('click', onClear);
 
@@ -115,7 +115,6 @@ artistName.addEventListener('input', searchArtist);
 
 // クリックされたアーティストのアルバムを表示する
 const handleSearchAlbum = (e) => {
-    console.log(e);
     // アーティストＩＤが押されたときのイベントを取らないといけない
     artistName.value = e.target.innerText
     artistName.setAttribute('data-artist_id', e.target.dataset.artist_id);
@@ -129,6 +128,9 @@ const searchAlbum = () => {
     if (autocompleteList) autocompleteList.remove();
     if (modalList) modalList.remove();
     let data_artistName = artistName.value;
+    if (data_artistName === "") {
+        return;
+    }
     let type = document.querySelector('#type').typeLabel.value;
     let artistId = artistName.dataset.artist_id;
     const params = new URLSearchParams({
@@ -210,22 +212,25 @@ const handleAddAlbumArt = (e) => {
     let selectAlbum = parentElement.querySelector('img').getAttribute('src');
 
     clickedElement.textContent = '選択中';
-    clickedElement.classList.toggle('select');
-    clickedElement.classList.toggle('selected');
-    clickedElement.classList.toggle('bg-turquoise');
-    clickedElement.classList.toggle('bg-orange');
+
+    let classList = [];
+    classList = [];
+    classList = ['select', 'selected', 'bg-turquoise', 'bg-orange'];
+    toggleClass(e, classList, 0);
 
     let albumArtList = document.querySelector('.albumArtList');
     let listItem = document.createElement('li');
     listItem.classList.add('albumListItem', 'action');
     listItem.setAttribute('id', id);
-    listItem.innerHTML = `<img class="l-albumArt m-bottom-05em" src="${selectAlbum}"><span class="selectName">${name}</span><span>${artist}</span>`;
+    listItem.innerHTML = `<img class="l-albumArt m-bottom-05em" src="${selectAlbum}"><span class="selectName">${name}</span><span>${artist}</span><span class="albumRemove"><span class="icon-close"></span></span>`;
     albumArtList.appendChild(listItem);
 
     if (document.querySelectorAll('.albumListItem').length === 10) {
-        let addButton = document.querySelector('.addButton');
-        addButton.classList.toggle('disp-block');
-        addButton.classList.toggle('disp-none');
+        let classList = [];
+        classList = [];
+        classList = ['disp-block', 'disp-none'];
+        toggleClass('.addButton', classList, 1);
+
         container.classList.remove('active');
 
         if (!document.querySelector('.resetWrapper')) {
@@ -233,36 +238,16 @@ const handleAddAlbumArt = (e) => {
             let resetWrapper = document.createElement('div');
             resetWrapper.classList.add('ta-center', 'resetWrapper');
             resetWrapper.innerHTML = `<button class="l-button action m-right-1em txt-white bg-turquoise reset action">
-                        <i class="fa-solid fa-rotate-right"></i>
+                        <img src="../images/rotate.png" alt="resetIcon">
                     </button>
                     <button class="l-button txt-white bg-turquoise capture action">
-                        <i class="fa-solid fa-camera"></i>
+                        <img src="../images/camera.png" alt="cameraIcon">
                     </button>`;
             resetArea.appendChild(resetWrapper);
             document.querySelector('.modal-container').classList.remove('active');
         }
     }
 }
-
-document.addEventListener('mouseenter', function (e) {
-    if (e.target.contains('.albumListItem')) {
-        const albumListItem = e.target.closest('.albumListItem');
-        const span = document.createElement('span');
-        span.classList.add('albumRemove');
-        span.innerHTML = '<i class="fa-solid fa-xmark"></i>';
-        albumListItem.appendChild(span);
-    }
-});
-
-document.addEventListener('mouseleave', function (e) {
-    if (e.target.contains('.albumListItem')) {
-        const albumListItem = e.target.closest('.albumListItem');
-        const albumRemove = albumListItem.querySelector('.albumRemove');
-        if (albumRemove) {
-            albumListItem.removeChild(albumRemove);
-        }
-    }
-});
 
 const handleAlbumRemove = (e) => {
     const removeButton = e.target.closest('.albumRemove');
@@ -274,17 +259,19 @@ const handleAlbumRemove = (e) => {
         addButton.classList.remove('disp-none');
         addButton.classList.add('disp-block');
     }
-    reset.classList.remove('disp-none');
+    // reset.classList.remove('disp-none');
 }
 
 const handleSelected = (e) => {
     const selectedButton = e.target.closest('.selected');
     const parentElement = selectedButton.parentElement;
     selectedButton.textContent = '選択';
-    selectedButton.classList.toggle('select');
-    selectedButton.classList.toggle('selected');
-    selectedButton.classList.toggle('bg-turquoise');
-    selectedButton.classList.toggle('bg-orange');
+
+    let classList = [];
+    classList = [];
+    classList = ['select', 'selected', 'bg-turquoise', 'bg-orange'];
+    toggleClass(e, classList, 0);
+
     let id = parentElement.id;
     let itemToRemove = document.getElementById(id);
     if (itemToRemove) {
@@ -299,8 +286,11 @@ const handleReset = () => {
     }
     const addButton = document.querySelector('.addButton');
     if (addButton.classList.contains('disp-none')) {
-        addButton.classList.toggle('disp-none');
-        addButton.classList.toggle('disp-block');
+        let classList = [];
+        classList = [];
+        classList = ['disp-block', 'disp-none'];
+        toggleClass('.addButton', classList, 1);
+
     }
     const resetWrapper = document.querySelector('.resetWrapper');
     if (resetWrapper) {
@@ -344,6 +334,20 @@ const toBlob = (base64) => {
     }
 }
 
+const toggleClass = (toggleTarget, classList, mode) => {
+    let toggleElement;
+    if (mode === 1) {
+        toggleElement = document.querySelector(`${toggleTarget}`);
+    } else {
+        toggleElement = toggleTarget.target;
+    }
+    if (toggleElement) {
+        classList.map((value) => {
+            toggleElement.classList.toggle(`${value}`);
+        })
+    }
+}
+
 document.addEventListener('click', function (e) {
     if (e.target.closest('.artistItems')) {
         handleSearchAlbum(e);
@@ -357,5 +361,7 @@ document.addEventListener('click', function (e) {
         handleReset();
     } else if (e.target.closest('.capture')) {
         handleCapture(e);
+    } else if (e.target.closest('#typeAlbum') || e.target.closest('#typeSingleEP') || e.target.closest('#typeAll')) {
+        searchAlbum();
     }
 });

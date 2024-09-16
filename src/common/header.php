@@ -12,7 +12,6 @@
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="BEST" />
     <meta property="og:locale" content="ja_JP" />
-    <script src="https://kit.fontawesome.com/3a6ca16033.js" crossorigin="anonymous"></script>
     <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

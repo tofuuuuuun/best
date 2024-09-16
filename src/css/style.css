@@ -94,6 +94,9 @@ input { padding: 0.5em; border-radius: 0; border: 1px solid #cacaca; }
 }
 
 .l-buttonSearch {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 7em;
     padding: 12px 24px;
     border: none;
@@ -153,6 +156,58 @@ input { padding: 0.5em; border-radius: 0; border: 1px solid #cacaca; }
 
 .bg-gray { background-color: #ced3c8; }
 .bg-gray:hover{ background-color: #d6dccf; }
+
+.icon-close {
+    display: inline-block;
+    vertical-align: middle;
+    color: #333;
+    line-height: 1;
+    width: 1em;
+    height: 0.1em;
+    background: currentColor;
+    border-radius: 0.1em;
+    position: relative;
+    transform: rotate(45deg);
+}
+
+.icon-close::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: inherit;
+    border-radius: inherit;
+    transform: rotate(90deg);
+}
+
+.icon-add {
+    display: inline-block;
+    vertical-align: middle;
+    color: #009688;
+    line-height: 1;
+    width: 1.1em;
+    height: 0.2em;
+    font-size: 3em;
+    background: currentColor;
+    border-radius: 0.1em;
+    position: relative;
+    transform: rotate(90deg);
+}
+
+.icon-add::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: inherit;
+    border-radius: inherit;
+    transform: rotate(90deg);
+}
+
 /* 共通パーツここまで */
 
 
@@ -303,10 +358,13 @@ input[type=radio]{display: none;}
 
 .albumListItem:hover{ opacity: 0.6; }
 
-.albumRemove{
+.albumRemove{ display: none ;}
+
+.albumListItem:hover .albumRemove{
+    display: block;
     position: absolute;
-    top: -5px;
-    right: 2px;
+    /* top: -5px;
+    right: 2px; */
     width: 30px;
     height: 30px;
     font-size: 30px;
@@ -444,7 +502,7 @@ main {
 
 .l-buttonSearch {
     width: 4em;
-    padding: 12px 15px;
+    padding: 10px 15px;
 }
 .l-button {
     width: 6em;
