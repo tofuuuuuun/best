@@ -17,7 +17,6 @@ const onStart = () => {
     classList = ['disp-none', 'disp-block'];
     toggleClass('.l-albumList', classList, 1);
 }
-startButton.addEventListener('click', onStart);
 
 const onOpen = () => {
     container.classList.add('active');
@@ -27,10 +26,8 @@ const onOpen = () => {
     artistName.value = '';
     artistName.setAttribute('data-artist_id', '');
 }
-addButton.addEventListener('click', onOpen);
 
 const onClose = () => { container.classList.remove('active'); }
-closeButton.addEventListener('click', onClose);
 
 const onClear = () => {
     artistName.value = '';
@@ -40,7 +37,6 @@ const onClear = () => {
     let modalList = document.querySelector('.modalList');
     if (modalList) modalList.remove();
 }
-document.querySelector('.clear').addEventListener('click', onClear);
 
 // アーティストの検索候補を表示する
 const searchArtist = () => {
@@ -112,7 +108,6 @@ const artistAutocomplete = (result) => {
     });
     document.querySelector('.autocompleteList').innerHTML = listItems;
 }
-artistName.addEventListener('input', searchArtist);
 
 // クリックされたアーティストのアルバムを表示する
 const handleSearchAlbum = (e) => {
@@ -197,10 +192,7 @@ const albumArt = async (result) => {
     await append(items)
 }
 
-const append = (items) => {
-    document.querySelector('.modalList').innerHTML += items;
-}
-search.addEventListener('click', searchAlbum);
+const append = (items) => { document.querySelector('.modalList').innerHTML += items; }
 
 const handleAddAlbumArt = (e) => {
     let clickedElement = e.target;
@@ -211,7 +203,6 @@ const handleAddAlbumArt = (e) => {
     let selectAlbum = parentElement.querySelector('img').getAttribute('src');
 
     clickedElement.textContent = '選択中';
-
     let classList = [];
     classList = [];
     classList = ['select', 'selected', 'bg-turquoise', 'bg-orange'];
@@ -345,20 +336,73 @@ const toggleClass = (toggleTarget, classList, mode) => {
     }
 }
 
+startButton.addEventListener('click', onStart);
+addButton.addEventListener('click', onOpen);
+closeButton.addEventListener('click', onClose);
+document.querySelector('.clear').addEventListener('click', onClear);
+search.addEventListener('click', searchAlbum);
+
+
+artistName.addEventListener('input', searchArtist);
+// 可読性からswitchにするか考える
+// document.addEventListener('click', function (e) {
+//     if (e.target.closest('.artistItems')) {
+//         handleSearchAlbum(e);
+//     } else if (e.target.closest('.select')) {
+//         handleAddAlbumArt(e);
+//     } else if (e.target.closest('.selected')) {
+//         handleSelected(e);
+//     } else if (e.target.closest('.albumRemove')) {
+//         handleAlbumRemove(e);
+//     } else if (e.target.closest('.reset')) {
+//         handleReset();
+//     } else if (e.target.closest('.capture')) {
+//         handleCapture(e);
+//     } else if (e.target.closest('#typeAlbum') || e.target.closest('#typeSingleEP') || e.target.closest('#typeAll')) {
+//         searchAlbum();
+//     }
+// });
+
 document.addEventListener('click', function (e) {
-    if (e.target.closest('.artistItems')) {
-        handleSearchAlbum(e);
-    } else if (e.target.closest('.select')) {
-        handleAddAlbumArt(e);
-    } else if (e.target.closest('.selected')) {
-        handleSelected(e);
-    } else if (e.target.closest('.albumRemove')) {
-        handleAlbumRemove(e);
-    } else if (e.target.closest('.reset')) {
-        handleReset();
-    } else if (e.target.closest('.capture')) {
-        handleCapture(e);
-    } else if (e.target.closest('#typeAlbum') || e.target.closest('#typeSingleEP') || e.target.closest('#typeAll')) {
-        searchAlbum();
+    let target = e.target;
+    switch (true) {
+        case target.closest('.startButton'):
+            onStart();
+            break;
+        case target.closest('.modal-close'):
+            onClose();
+            break;
+        case target.closest('.addButton'):
+            onOpen();
+            break;
+        case target.closest('.clear'):
+            onClear();
+            break;
+        case target.closest('.search'):
+            searchAlbum();
+            break;
+        case e.target.closest('.artistItems'):
+            handleSearchAlbum(e);
+            break;
+        case e.target.closest('.select'):
+            handleAddAlbumArt(e);
+            break;
+        case e.target.closest('.selected'):
+            handleSelected(e);
+            break;
+        case e.target.closest('.albumRemove'):
+            handleAlbumRemove(e);
+            break;
+        case e.target.closest('.reset'):
+            handleReset();
+            break;
+        case e.target.closest('.capture'):
+            handleCapture(e);
+            break;
+        case e.target.closest('#typeAlbum'):
+        case e.target.closest('#typeSingleEP'):
+        case e.target.closest('#typeAll'):
+            searchAlbum();
+            break;
     }
 });
