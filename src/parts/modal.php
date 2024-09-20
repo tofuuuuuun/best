@@ -17,11 +17,11 @@
             <div class="ta-left m-bottom-1em">
                 <form id="type">
                     <input type="radio" name=typeLabel id="typeAlbum" value="album" checked>
-                    <label for="typeAlbum" class="l-subButton bg-gray">アルバム</label>
+                    <label for="typeAlbum" class="l-subButton bg-gray typeAlbum">アルバム</label>
                     <input type="radio" name=typeLabel id="typeSingleEP" value="single">
-                    <label for="typeSingleEP" class="l-subButton bg-gray">シングルとEP</label>
+                    <label for="typeSingleEP" class="l-subButton bg-gray typeSingleEP">シングルとEP</label>
                     <input type="radio" name=typeLabel id="typeAll" value="all">
-                    <label for="typeAll" class="l-subButton bg-gray">すべて</label>
+                    <label for="typeAll" class="l-subButton bg-gray typeAll">すべて</label>
                 </form>
                 <!-- <p>あと<span id="choiceCounter" class="counterText txt-orange">10</span><span class="counterText  txt-orange">枚</span>！</p> -->
 

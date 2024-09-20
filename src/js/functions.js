@@ -126,7 +126,15 @@ const searchAlbum = () => {
     if (data_artistName === "") {
         return;
     }
-    let type = document.querySelector('#type').typeLabel.value;
+
+    let label = document.querySelectorAll('input[name="typeLabel"]');
+    let type = '';
+    label.forEach(radio => {
+        if (radio.checked === true) {
+            type = radio.value;
+        }
+    });
+
     let artistId = artistName.dataset.artist_id;
     const params = new URLSearchParams({
         'artistName': data_artistName,
@@ -336,11 +344,11 @@ const toggleClass = (toggleTarget, classList, mode) => {
     }
 }
 
-startButton.addEventListener('click', onStart);
-addButton.addEventListener('click', onOpen);
-closeButton.addEventListener('click', onClose);
-document.querySelector('.clear').addEventListener('click', onClear);
-search.addEventListener('click', searchAlbum);
+// startButton.addEventListener('click', onStart);
+// addButton.addEventListener('click', onOpen);
+// closeButton.addEventListener('click', onClose);
+// document.querySelector('.clear').addEventListener('click', onClear);
+// search.addEventListener('click', searchAlbum);
 
 
 artistName.addEventListener('input', searchArtist);
@@ -366,22 +374,22 @@ artistName.addEventListener('input', searchArtist);
 document.addEventListener('click', function (e) {
     let target = e.target;
     switch (true) {
-        case target.closest('.startButton'):
+        case target.classList.contains('startButton'):
             onStart();
             break;
-        case target.closest('.modal-close'):
+        case target.classList.contains('modal-close'):
             onClose();
             break;
-        case target.closest('.addButton'):
+        case target.classList.contains('addButton'):
             onOpen();
             break;
-        case target.closest('.clear'):
+        case target.classList.contains('clear'):
             onClear();
             break;
-        case target.closest('.search'):
+        case target.classList.contains('search'):
             searchAlbum();
             break;
-        case e.target.closest('.artistItems'):
+        case target.classList.contains('artistItems'):
             handleSearchAlbum(e);
             break;
         case e.target.closest('.select'):
@@ -399,10 +407,40 @@ document.addEventListener('click', function (e) {
         case e.target.closest('.capture'):
             handleCapture(e);
             break;
-        case e.target.closest('#typeAlbum'):
-        case e.target.closest('#typeSingleEP'):
-        case e.target.closest('#typeAll'):
-            searchAlbum();
-            break;
+        // case target.classList.contains('typeAlbum'):
+        //     searchAlbum();
+        //     break;
+        // case target.classList.contains('typeSingleEP'):
+        //     searchAlbum();
+        //     break;
+        // case target.classList.contains('typeAll'):
+        //     searchAlbum();
+        //     break;
     }
 });
+
+let listener = document.querySelectorAll('input[name="typeLabel"]');
+
+listener.forEach(radio => {
+    radio.addEventListener('change', (event) => {
+        // ここで checked 状態を取得できます
+        if (event.target.checked) {
+            searchAlbum();
+        }
+    });
+});
+
+// document.addEventListener('change', function (event) {
+//     let target = event.target;
+//     switch (true) {
+//         case target.classList.contains('typeAlbum'):
+//             searchAlbum();
+//             break;
+//         case target.classList.contains('typeSingleEP'):
+//             searchAlbum();
+//             break;
+//         case target.classList.contains('typeAll'):
+//             searchAlbum();
+//             break;
+//     }
+// });
