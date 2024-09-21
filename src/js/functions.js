@@ -9,20 +9,15 @@ const modalList = document.querySelector('.modalList');
 const search = document.querySelector('.search');
 
 const onStart = () => {
-    let classList = [];
-    classList = ['fadeIn', 'fadeOut', 'disp-none', 'disp-block'];
+    let classList = ['fadeIn', 'fadeOut', 'disp-none', 'disp-block'];
     toggleClass('.startText', classList, 1);
-
-    classList = [];
     classList = ['disp-none', 'disp-block'];
     toggleClass('.l-albumList', classList, 1);
 }
 
 const onOpen = () => {
     container.classList.add('active');
-    let modalList = document.querySelector('.modalList');
-    if (modalList) modalList.remove();
-    if (autocompleteList) autocompleteList.remove();
+    removeElements(['.modalList', '.autocompleteList']);
     artistName.value = '';
     artistName.setAttribute('data-artist_id', '');
 }
@@ -32,20 +27,15 @@ const onClose = () => { container.classList.remove('active'); }
 const onClear = () => {
     artistName.value = '';
     artistName.setAttribute('data-artist_id', '');
-    let autocompleteList = document.querySelector('.autocompleteList');
-    if (autocompleteList) autocompleteList.remove();
-    let modalList = document.querySelector('.modalList');
-    if (modalList) modalList.remove();
+    removeElements(['.modalList', '.autocompleteList']);
 }
 
 // アーティストの検索候補を表示する
 const searchArtist = () => {
     let data_artistName = artistName.value;
     if (autocompleteList) autocompleteList.remove();
-    const params = new URLSearchParams({
-        'artistName': data_artistName
-    })
 
+    const params = new URLSearchParams({ 'artistName': data_artistName });
     fetch(`./js/ajax/searchArtists.php?${params}`, {
         method: 'GET',
         headers: {
@@ -60,26 +50,29 @@ const searchArtist = () => {
         })
         .catch(error => {
             console.log(error);
-            let errorItem = document.createElement('li');
-            errorItem.innerHTML = 'アーティスト情報の取得に失敗しました。'
-            document.querySelector('.modal-content').innerHTML = errorItem
+            const autocompleteContainer = document.querySelector('.l-autocomplete');
+            const ul = document.createElement('ul');
+            ul.classList.add('autocompleteList', 'padding-all-1em');
+            autocompleteContainer.appendChild(ul);
+            let errorItem = `<li>アーティスト情報の取得に失敗しました。</li>`
+            document.querySelector('.autocompleteList').innerHTML = errorItem;
         });
 }
 const artistAutocomplete = (result) => {
     const autocompleteList = document.querySelector('.autocompleteList');
-    const modalList = document.querySelector('.modalList');
     const autocompleteContainer = document.querySelector('.l-autocomplete');
 
     if (autocompleteList && autocompleteList.value === "") {
-        if (autocompleteList) autocompleteList.remove();
-        if (modalList) modalList.remove();
+        removeElements(['.modalList', '.autocompleteList']);
         return;
     }
+
     if (!autocompleteList) {
         const ul = document.createElement('ul');
         ul.classList.add('autocompleteList', 'padding-all-1em');
         autocompleteContainer.appendChild(ul);
     }
+
     let listItems = '';
     result['items'].forEach(item => {
         const searchArtistName = item.name;
@@ -119,13 +112,9 @@ const handleSearchAlbum = (e) => {
 
 const searchAlbum = () => {
     let artistName = document.querySelector('#artistName');
-    let autocompleteList = document.querySelector('.autocompleteList');
-    if (autocompleteList) autocompleteList.remove();
-    if (modalList) modalList.remove();
+    removeElements(['.modalList', '.autocompleteList']);
     let data_artistName = artistName.value;
-    if (data_artistName === "") {
-        return;
-    }
+    if (data_artistName === "") { return; }
 
     let label = document.querySelectorAll('input[name="typeLabel"]');
     let type = '';
@@ -203,7 +192,6 @@ const albumArt = async (result) => {
                 <button class="l-button txt-white ${buttonClass} ${selectClass} action">${buttonText}</button>
             </li>`;
     });
-    // 
     await append(items)
 }
 
@@ -218,9 +206,7 @@ const handleAddAlbumArt = (e) => {
     let selectAlbum = parentElement.querySelector('img').getAttribute('src');
 
     clickedElement.textContent = '選択中';
-    let classList = [];
-    classList = [];
-    classList = ['select', 'selected', 'bg-turquoise', 'bg-orange'];
+    let classList = ['select', 'selected', 'bg-turquoise', 'bg-orange'];
     toggleClass(e, classList, 0);
 
     let albumArtList = document.querySelector('.albumArtList');
@@ -231,13 +217,9 @@ const handleAddAlbumArt = (e) => {
     albumArtList.appendChild(listItem);
 
     if (document.querySelectorAll('.albumListItem').length === 10) {
-        let classList = [];
-        classList = [];
-        classList = ['disp-block', 'disp-none'];
+        let classList = ['disp-block', 'disp-none'];
         toggleClass('.addButton', classList, 1);
-
         container.classList.remove('active');
-
         if (!document.querySelector('.resetWrapper')) {
             let resetArea = document.querySelector('.resetArea');
             let resetWrapper = document.createElement('div');
@@ -259,7 +241,6 @@ const handleAlbumRemove = (e) => {
     const parentItem = removeButton.parentElement;
     parentItem.remove();
     const albumCount = document.querySelectorAll('.albumListItem').length;
-
     if (albumCount === 9) {
         addButton.classList.remove('disp-none');
         addButton.classList.add('disp-block');
@@ -271,28 +252,20 @@ const handleSelected = (e) => {
     const parentElement = selectedButton.parentElement;
     selectedButton.textContent = '選択';
 
-    let classList = [];
-    classList = [];
-    classList = ['select', 'selected', 'bg-turquoise', 'bg-orange'];
+    let classList = ['select', 'selected', 'bg-turquoise', 'bg-orange'];
     toggleClass(e, classList, 0);
 
     let id = parentElement.id;
     let itemToRemove = document.getElementById(id);
-    if (itemToRemove) {
-        itemToRemove.remove();
-    }
+    if (itemToRemove) { itemToRemove.remove(); }
 }
 
 const handleReset = () => {
     const albumArtList = document.querySelector('.albumArtList');
-    if (albumArtList) {
-        albumArtList.innerHTML = '';
-    }
+    if (albumArtList) { albumArtList.innerHTML = ''; }
     const addButton = document.querySelector('.addButton');
     if (addButton.classList.contains('disp-none')) {
-        let classList = [];
-        classList = [];
-        classList = ['disp-block', 'disp-none'];
+        let classList = ['disp-block', 'disp-none'];
         toggleClass('.addButton', classList, 1);
     }
     const resetWrapper = document.querySelector('.resetWrapper');
@@ -351,7 +324,23 @@ const toggleClass = (toggleTarget, classList, mode) => {
     }
 }
 
+const removeElements = (selectors) => {
+    selectors.forEach(selector => {
+        const element = document.querySelector(selector);
+        if (element) element.remove();
+    });
+};
+
 artistName.addEventListener('input', searchArtist);
+
+let listener = document.querySelectorAll('input[name="typeLabel"]');
+listener.forEach(radio => {
+    radio.addEventListener('change', (event) => {
+        if (event.target.checked) {
+            searchAlbum();
+        }
+    });
+});
 
 document.addEventListener('click', function (e) {
     let target = e.target;
@@ -371,22 +360,19 @@ document.addEventListener('click', function (e) {
         case target.classList.contains('search'):
             searchAlbum();
             break;
-        // case e.target.closest('.artistItems'):
-        //     handleSearchAlbum(e);
-        //     break;
-        case e.target.closest('.select'):
+        case target.classList.contains('select'):
             handleAddAlbumArt(e);
             break;
-        case e.target.closest('.selected'):
+        case target.classList.contains('selected'):
             handleSelected(e);
             break;
-        case e.target.closest('.albumRemove'):
+        case target.classList.contains('albumRemove'):
             handleAlbumRemove(e);
             break;
-        case e.target.closest('.reset'):
+        case target.classList.contains('reset'):
             handleReset();
             break;
-        case e.target.closest('.capture'):
+        case target.classList.contains('capture'):
             handleCapture(e);
             break;
     }
@@ -395,14 +381,4 @@ document.addEventListener('click', function (e) {
     if (artistItem) {
         handleSearchAlbum(e);
     }
-});
-
-let listener = document.querySelectorAll('input[name="typeLabel"]');
-
-listener.forEach(radio => {
-    radio.addEventListener('change', (event) => {
-        if (event.target.checked) {
-            searchAlbum();
-        }
-    });
 });

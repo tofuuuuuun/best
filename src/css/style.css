@@ -363,8 +363,8 @@ input[type=radio]{display: none;}
 .albumListItem:hover .albumRemove{
     display: block;
     position: absolute;
-    /* top: -5px;
-    right: 2px; */
+    top: -8px;
+    right: 5px;
     width: 30px;
     height: 30px;
     font-size: 30px;

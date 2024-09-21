@@ -7,7 +7,7 @@
             <div class="l-searchForm ta-left m-bottom-1em">
                 <div class="l-selectType">
                     <input type="text" name="artist" id="artistName" placeholder="アーティスト名" data-artist_id="">
-                    <span class="clear icon-close"></span>
+                    <div class="clear"><span class="icon-close"></span></div>
                 </div>
                 <div class="l-autocomplete"></div>
                 <button class="l-buttonSearch txt-white bg-turquoise search action">
