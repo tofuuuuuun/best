@@ -111,9 +111,9 @@ const artistAutocomplete = (result) => {
 
 // クリックされたアーティストのアルバムを表示する
 const handleSearchAlbum = (e) => {
-    // TODO: アーティストＩＤが押されたときのイベントを取らないといけない
     artistName.value = e.target.innerText
-    artistName.setAttribute('data-artist_id', e.target.dataset.artist_id);
+    let data = e.target.closest('.artistItems');
+    artistName.setAttribute('data-artist_id', data.dataset.artist_id);
     searchAlbum();
 }
 
@@ -155,9 +155,16 @@ const searchAlbum = () => {
         })
         .catch(error => {
             console.log(error);
-            let errorItem = document.createElement('li');
-            errorItem.innerHTML = 'アーティスト情報の取得に失敗しました。'
-            document.querySelector('.modal-content').innerHTML = errorItem
+            let modalList = document.querySelector('.modalList');
+            if (!modalList) {
+                let ul = document.createElement('ul');
+                ul.classList.add('modalList');
+                document.querySelector('.modal-content').appendChild(ul);
+            } else {
+                modalList.innerHTML = '';
+            }
+            let item = `<li>データの取得に失敗しました。再検索してください。</li>`
+            append(item);
         });
 }
 
@@ -344,32 +351,7 @@ const toggleClass = (toggleTarget, classList, mode) => {
     }
 }
 
-// startButton.addEventListener('click', onStart);
-// addButton.addEventListener('click', onOpen);
-// closeButton.addEventListener('click', onClose);
-// document.querySelector('.clear').addEventListener('click', onClear);
-// search.addEventListener('click', searchAlbum);
-
-
 artistName.addEventListener('input', searchArtist);
-// 可読性からswitchにするか考える
-// document.addEventListener('click', function (e) {
-//     if (e.target.closest('.artistItems')) {
-//         handleSearchAlbum(e);
-//     } else if (e.target.closest('.select')) {
-//         handleAddAlbumArt(e);
-//     } else if (e.target.closest('.selected')) {
-//         handleSelected(e);
-//     } else if (e.target.closest('.albumRemove')) {
-//         handleAlbumRemove(e);
-//     } else if (e.target.closest('.reset')) {
-//         handleReset();
-//     } else if (e.target.closest('.capture')) {
-//         handleCapture(e);
-//     } else if (e.target.closest('#typeAlbum') || e.target.closest('#typeSingleEP') || e.target.closest('#typeAll')) {
-//         searchAlbum();
-//     }
-// });
 
 document.addEventListener('click', function (e) {
     let target = e.target;
@@ -389,9 +371,9 @@ document.addEventListener('click', function (e) {
         case target.classList.contains('search'):
             searchAlbum();
             break;
-        case target.classList.contains('artistItems'):
-            handleSearchAlbum(e);
-            break;
+        // case e.target.closest('.artistItems'):
+        //     handleSearchAlbum(e);
+        //     break;
         case e.target.closest('.select'):
             handleAddAlbumArt(e);
             break;
@@ -407,15 +389,11 @@ document.addEventListener('click', function (e) {
         case e.target.closest('.capture'):
             handleCapture(e);
             break;
-        // case target.classList.contains('typeAlbum'):
-        //     searchAlbum();
-        //     break;
-        // case target.classList.contains('typeSingleEP'):
-        //     searchAlbum();
-        //     break;
-        // case target.classList.contains('typeAll'):
-        //     searchAlbum();
-        //     break;
+    }
+
+    let artistItem = e.target.closest('.artistItems');
+    if (artistItem) {
+        handleSearchAlbum(e);
     }
 });
 
@@ -423,24 +401,8 @@ let listener = document.querySelectorAll('input[name="typeLabel"]');
 
 listener.forEach(radio => {
     radio.addEventListener('change', (event) => {
-        // ここで checked 状態を取得できます
         if (event.target.checked) {
             searchAlbum();
         }
     });
 });
-
-// document.addEventListener('change', function (event) {
-//     let target = event.target;
-//     switch (true) {
-//         case target.classList.contains('typeAlbum'):
-//             searchAlbum();
-//             break;
-//         case target.classList.contains('typeSingleEP'):
-//             searchAlbum();
-//             break;
-//         case target.classList.contains('typeAll'):
-//             searchAlbum();
-//             break;
-//     }
-// });
