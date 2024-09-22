@@ -127,7 +127,7 @@ input { padding: 0.5em; border-radius: 0; border: 1px solid #cacaca; }
     position: absolute;
     width: 50%; 
     left: 96px;
-    top: 60px;
+    top: 45px;
 }
 
 .l-searchArtistImage{
@@ -444,7 +444,7 @@ input[type="radio"]:checked + label{
 .modalList::-webkit-scrollbar, .autocompleteList::-webkit-scrollbar{
     background: #fff;
     width: 5px;
-    height: 15px;
+    height: 5px;
     border-radius: 10px;
 }
 

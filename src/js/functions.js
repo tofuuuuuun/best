@@ -140,6 +140,7 @@ const searchAlbum = () => {
         .then(response => response.text())
         .then(result => {
             const jsonResult = JSON.parse(result);
+            console.log(result);
             albumArt(jsonResult);
         })
         .catch(error => {
@@ -173,7 +174,7 @@ const albumArt = async (result) => {
 
     let items = '';
     result['items'].forEach(item => {
-        let imageItems = item.images[1].url;
+        let imageItems = item.images[0].url;
         let albumName = item.name;
         let release = item.release_date.substring(0, 4);
         let albumId = item.id;
@@ -331,7 +332,18 @@ const removeElements = (selectors) => {
     });
 };
 
-artistName.addEventListener('input', searchArtist);
+const debounce = (func, delay) => {
+    let timeoutId;
+    return (...args) => {
+        if (timeoutId) clearTimeout(timeoutId);
+        timeoutId = setTimeout(() => {
+            func(...args);
+        }, delay);
+    };
+};
+
+const debouncedSearchArtist = debounce(searchArtist, 500);
+artistName.addEventListener('input', debouncedSearchArtist);
 
 let listener = document.querySelectorAll('input[name="typeLabel"]');
 listener.forEach(radio => {

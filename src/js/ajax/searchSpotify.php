@@ -57,7 +57,50 @@ if ($result->next) {
     }
 }
 
-apcu_store($cacheKey, $result, 300);
+$workResult = json_decode(json_encode($result), true);
 
-echo json_encode($result);
+foreach ($workResult['items'] as $key => &$value) {
+    if (isset($value['images']) && is_array($value['images'])) {
+        $value['images'] = array_filter($value['images'], function ($image) {
+            return $image['width'] >= 300 && $image['width'] < 640;
+        });
+        $value['images'] = array_values($value['images']);
+    }
+
+    if (isset($value['release_date_precision'])) {
+        unset($workResult['items'][$key]['release_date_precision']);
+    }
+
+    if (isset($value['total_tracks'])) {
+        unset($workResult['items'][$key]['total_tracks']);
+    }
+
+    if (isset($value['available_markets'])) {
+        unset($workResult['items'][$key]['available_markets']);
+    }
+
+    if (isset($value['external_urls'])) {
+        unset($workResult['items'][$key]['external_urls']);
+    }
+
+    if (isset($value['href'])) {
+        unset($workResult['items'][$key]['href']);
+    }
+
+    if (isset($value['uri'])) {
+        unset($workResult['items'][$key]['uri']);
+    }
+
+    if (isset($value['album_type'])) {
+        unset($workResult['items'][$key]['album_type']);
+    }
+
+    if (isset($value['album_group'])) {
+        unset($workResult['items'][$key]['album_group']);
+    }
+}
+
+apcu_store($cacheKey, $workResult, 300);
+
+echo json_encode($workResult);
 exit;
