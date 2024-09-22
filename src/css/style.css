@@ -40,6 +40,7 @@ input { padding: 0.5em; border-radius: 0; border: 1px solid #cacaca; }
 
 .padding-all-05em { padding: 0.5em; }
 .padding-all-1em { padding: 1em; }
+.p-left-05em{ padding-left: 0.5em; }
 .p-left-1em{ padding-left: 1em; }
 .p-left-2em{ padding-left: 2em; }
 .p-left-3em{ padding-left: 3em; }
@@ -107,7 +108,6 @@ input { padding: 0.5em; border-radius: 0; border: 1px solid #cacaca; }
 .l-searchForm{
     position: relative;
     display: flex;
-    justify-content: space-around;
 }
 
 .l-albumInfo{
@@ -242,6 +242,7 @@ input { padding: 0.5em; border-radius: 0; border: 1px solid #cacaca; }
     border: none;
     box-shadow: 2px 2px 15px 1px #1a1a1a;
     background-color: #F1F8E9;
+    cursor: pointer;
 }
 
 .addButton:hover {
@@ -305,7 +306,7 @@ input { padding: 0.5em; border-radius: 0; border: 1px solid #cacaca; }
 
 .modal-content {
     background: #F1F8E9;
-    padding: 1em;
+    padding: 1em 1em 1em 1.5em;
     text-align: left;
     border-radius: 5px;
     box-shadow: 2px 2px 15px 1px #222222;
@@ -329,6 +330,7 @@ input { padding: 0.5em; border-radius: 0; border: 1px solid #cacaca; }
 .clear{
     position: absolute;
     right: 11px;
+    top: 6px;
     color: #424242;
     cursor: pointer;
 }
@@ -569,7 +571,7 @@ main {
 .modal-content {
     background: #F1F8E9;
     text-align: left;
-    padding: 1em 0.5em;
+    padding: 1em 0.5em 1em 1em;
     border-radius: 5px;
     box-shadow: 2px 2px 15px 1px #222222;
 }

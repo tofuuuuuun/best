@@ -140,7 +140,6 @@ const searchAlbum = () => {
         .then(response => response.text())
         .then(result => {
             const jsonResult = JSON.parse(result);
-            console.log(result);
             albumArt(jsonResult);
         })
         .catch(error => {
@@ -187,7 +186,7 @@ const albumArt = async (result) => {
         items += `<li class="albumItems" id="${albumId}" data-name="${albumName}" data-artist="${artistsName}">
                 <img class="albumImage" src="${imageItems}" loading="lazy">
                 <div class="l-albumInfo">
-                    <span class="albumName">${albumName} (${release})</span>
+                    <span class="albumName font-wb">${albumName} (${release})</span>
                     <span class="artistsName">${artistsName}</span>
                 </div>
                 <button class="l-button txt-white ${buttonClass} ${selectClass} action">${buttonText}</button>
@@ -381,10 +380,10 @@ document.addEventListener('click', function (e) {
         case target.classList.contains('albumRemove'):
             handleAlbumRemove(e);
             break;
-        case target.classList.contains('reset'):
+        case target.closest('.reset'):
             handleReset();
             break;
-        case target.classList.contains('capture'):
+        case target.closest('.capture'):
             handleCapture(e);
             break;
     }

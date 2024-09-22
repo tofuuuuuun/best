@@ -10,9 +10,11 @@
                     <div class="clear"><span class="icon-close"></span></div>
                 </div>
                 <div class="l-autocomplete"></div>
-                <button class="l-buttonSearch txt-white bg-turquoise search action">
-                    <img src="../images/search.png" alt="searchIcon" width="15">
-                </button>
+                <div class="p-left-05em">
+                    <button class="l-buttonSearch txt-white bg-turquoise search action">
+                        <img src="../images/search.png" alt="searchIcon" width="15">
+                    </button>
+                </div>
             </div>
             <div class="ta-left m-bottom-1em">
                 <form id="type">
@@ -23,8 +25,6 @@
                     <input type="radio" name=typeLabel id="typeAll" value="all">
                     <label for="typeAll" class="l-subButton bg-gray typeAll">すべて</label>
                 </form>
-                <!-- <p>あと<span id="choiceCounter" class="counterText txt-orange">10</span><span class="counterText  txt-orange">枚</span>！</p> -->
-
             </div>
         </div>
     </div>

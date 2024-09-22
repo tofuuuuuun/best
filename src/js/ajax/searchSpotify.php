@@ -9,7 +9,6 @@ $artistId = $_GET['artistId'] ?? "";
 $cacheKey = "";
 $cachedResult = "";
 
-
 $cacheKey = "artist_albums_" . ($artistId ?: md5($artistName)) . "_" . ($type ?: 'all');
 
 // キャッシュに一致するデータが有れば返す
@@ -37,7 +36,7 @@ if ($type != "all") {
 }
 
 if ($result->next) {
-    $tmpResult;
+    $tmpResult = "";
     $resultFlg = true;
     for ($i = 1; $resultFlg == true;) {
         $offset = 50;
@@ -59,7 +58,7 @@ if ($result->next) {
 
 $workResult = json_decode(json_encode($result), true);
 
-foreach ($workResult['items'] as $key => &$value) {
+foreach ($workResult['items'] as $key => $value) {
     if (isset($value['images']) && is_array($value['images'])) {
         $value['images'] = array_filter($value['images'], function ($image) {
             return $image['width'] >= 300 && $image['width'] < 640;
@@ -67,36 +66,9 @@ foreach ($workResult['items'] as $key => &$value) {
         $value['images'] = array_values($value['images']);
     }
 
-    if (isset($value['release_date_precision'])) {
-        unset($workResult['items'][$key]['release_date_precision']);
-    }
-
-    if (isset($value['total_tracks'])) {
-        unset($workResult['items'][$key]['total_tracks']);
-    }
-
-    if (isset($value['available_markets'])) {
-        unset($workResult['items'][$key]['available_markets']);
-    }
-
-    if (isset($value['external_urls'])) {
-        unset($workResult['items'][$key]['external_urls']);
-    }
-
-    if (isset($value['href'])) {
-        unset($workResult['items'][$key]['href']);
-    }
-
-    if (isset($value['uri'])) {
-        unset($workResult['items'][$key]['uri']);
-    }
-
-    if (isset($value['album_type'])) {
-        unset($workResult['items'][$key]['album_type']);
-    }
-
-    if (isset($value['album_group'])) {
-        unset($workResult['items'][$key]['album_group']);
+    $delArr = ['release_date_precision', 'total_tracks', 'available_markets', 'external_urls', 'href', 'uri', 'album_type', 'album_group'];
+    foreach ($delArr as $delKey => $delValue) {
+        unset($workResult['items'][$key][$delValue]);
     }
 }
 
